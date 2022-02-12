@@ -9,8 +9,11 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
 
@@ -24,7 +27,10 @@ public class Drivetrain extends SubsystemBase {
 
   private final AHRS m_gyro = new AHRS(SPI.Port.kMXP);
 
-  private boolean toggleFieldDrive = false;
+  private final ShuffleboardTab m_tab = Shuffleboard.getTab("Main");
+  private final NetworkTableEntry m_toggle;
+
+  public boolean toggleFieldDrive = false;
 
   /** Creates a new Drivetrain. */
   public Drivetrain() {
@@ -39,6 +45,9 @@ public class Drivetrain extends SubsystemBase {
     m_rearRightMotor.setInverted(InvertType.None);
 
     m_drive.setMaxOutput(DriveConstants.kMaxSpeed);
+
+    m_toggle = m_tab.add("Drive Mode", toggleFieldDrive).withPosition(5, 0).getEntry();
+    m_tab.add("Drivetrain", m_drive).withPosition(0, 0).withSize(4, 2);
   }
 
   public void driveCartesian(double ySpeed, double xSpeed, double zRotation) {
@@ -55,6 +64,7 @@ public class Drivetrain extends SubsystemBase {
 
   public void toggleFieldDrive() {
     toggleFieldDrive = !toggleFieldDrive;
+    m_toggle.setBoolean(toggleFieldDrive);
   }
 
   public boolean getFieldDriveMode() {

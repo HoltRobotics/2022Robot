@@ -17,7 +17,7 @@ import frc.robot.commands.Drive.ToggleFieldDrive;
 import frc.robot.commands.Intake.FrontIntake;
 import frc.robot.commands.Intake.SideIntake;
 import frc.robot.commands.Shoot.BallGoBurrrrrr;
-import frc.robot.commands.Shoot.Elevator;
+import frc.robot.commands.Shoot.Feeder;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
@@ -52,10 +52,10 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(m_controller, Button.kA.value).whenPressed(new ToggleFieldDrive(m_drive));
+    new JoystickButton(m_controller, 1).whenPressed(new ToggleFieldDrive(m_drive));
     new JoystickButton(m_operator, 1).whenHeld(new FrontIntake(1, m_intake));
     new JoystickButton(m_operator, 2).whenHeld(new SideIntake(1, m_intake));
-    new JoystickButton(m_operator, 3).whenHeld(new Elevator(m_shoot));
+    new JoystickButton(m_operator, 3).whenHeld(new Feeder(m_shoot));
     new JoystickButton(m_operator, 4).whenHeld(new BallGoBurrrrrr(m_shoot));
   }
 

@@ -28,8 +28,9 @@ public final class Constants {
     }
 
     public static final class ShooterConstants {
-        public static final int kElevatorMotor = 6;
-        public static final int kShooterMotor = 7;
+        public static final int kBeltFeederMotor = 6;
+        public static final int kFrontFeederMotor = 7;
+        public static final int kShooterMotor = 8;
     }
 
     public static final class OIConstants {

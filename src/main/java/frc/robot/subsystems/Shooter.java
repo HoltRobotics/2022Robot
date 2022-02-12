@@ -13,15 +13,18 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ShooterConstants;
 
 public class Shooter extends SubsystemBase {
-  private final WPI_VictorSPX m_elevatorMotor = new WPI_VictorSPX(ShooterConstants.kElevatorMotor);
+  private final WPI_VictorSPX m_beltFeederMotor = new WPI_VictorSPX(ShooterConstants.kBeltFeederMotor);
+  private final WPI_VictorSPX m_frontFeederMotor = new WPI_VictorSPX(ShooterConstants.kFrontFeederMotor);
   private final WPI_TalonFX m_shooterMotor = new WPI_TalonFX(ShooterConstants.kShooterMotor);
 
   /** Creates a new Shooter. */
   public Shooter() {
-    m_elevatorMotor.setNeutralMode(NeutralMode.Brake);
+    m_beltFeederMotor.setNeutralMode(NeutralMode.Brake);
+    m_frontFeederMotor.setNeutralMode(NeutralMode.Brake);
     m_shooterMotor.setNeutralMode(NeutralMode.Coast);
 
-    m_elevatorMotor.setInverted(InvertType.None);
+    m_beltFeederMotor.setInverted(InvertType.None);
+    m_frontFeederMotor.setInverted(InvertType.None);
     m_shooterMotor.setInverted(InvertType.None);
   }
 
@@ -33,8 +36,9 @@ public class Shooter extends SubsystemBase {
     m_shooterMotor.set(1);
   }
 
-  public void runElevator(double speed) {
-    m_elevatorMotor.set(speed);
+  public void runFeeder(double speed) {
+    m_beltFeederMotor.set(speed);
+    m_frontFeederMotor.set(speed);
   }
 
   @Override

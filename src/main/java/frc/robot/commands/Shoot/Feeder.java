@@ -7,14 +7,14 @@ package frc.robot.commands.Shoot;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Shooter;
 
-public class Elevator extends CommandBase {
+public class Feeder extends CommandBase {
   public final Shooter m_shooter;
 
-  /** Creates a new Elevator. */
-  public Elevator(Shooter shooter) {
+  /** Creates a new Feeder. */
+  public Feeder(Shooter shooter) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_shooter = shooter;
-    //TODO: might need to have the elevator in a different subsystem
+    //TODO: might need to have the feeder in a different subsystem
     addRequirements(m_shooter);
   }
 
@@ -25,13 +25,13 @@ public class Elevator extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_shooter.runElevator(1);
+    m_shooter.runFeeder(1);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_shooter.runElevator(0);
+    m_shooter.runFeeder(0);
   }
 
   // Returns true when the command should end.
