@@ -2,41 +2,40 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.Shoot;
+package frc.robot.commands.Drive;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Drivetrain;
 
-public class Feeder extends CommandBase {
-  public final Shooter m_shooter;
+public class PlayMusic extends CommandBase {
+  private final Drivetrain m_drive;
 
-  /** Creates a new Feeder. */
-  public Feeder(Shooter shooter) {
+  /** Creates a new PlayMusic. */
+  public PlayMusic(Drivetrain drive) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_shooter = shooter;
-    //TODO: might need to have the feeder in a different subsystem
-    addRequirements(m_shooter);
+    m_drive = drive;
+    addRequirements(drive);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    m_drive.playMusic();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    m_shooter.runFeeder(1);
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_shooter.runFeeder(0);
+    m_drive.stopMusic();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return m_drive.isPlayingMusic();
   }
 }

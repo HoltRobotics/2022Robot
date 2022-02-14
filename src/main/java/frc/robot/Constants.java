@@ -27,9 +27,14 @@ public final class Constants {
         public static final int kSideIntakeMotor = 5;
     }
 
-    public static final class ShooterConstants {
+    public static final class FeederConstants {
         public static final int kBeltFeederMotor = 6;
         public static final int kFrontFeederMotor = 7;
+        public static final double kFeederMotorSpeed = 1.0;
+    }
+
+    public static final class ShooterConstants {
+        
         public static final int kShooterMotor = 8;
     }
 

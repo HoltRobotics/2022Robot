@@ -7,11 +7,13 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix.music.Orchestra;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -24,6 +26,8 @@ public class Drivetrain extends SubsystemBase {
   private final WPI_TalonFX m_rearRightMotor = new WPI_TalonFX(DriveConstants.kFrontRightMotor);
 
   private final MecanumDrive m_drive = new MecanumDrive(m_frontLeftMotor, m_rearLeftMotor, m_frontRightMotor, m_rearRightMotor);
+
+  private final Orchestra m_orchestra = new Orchestra();
 
   private final AHRS m_gyro = new AHRS(SPI.Port.kMXP);
 
@@ -46,8 +50,16 @@ public class Drivetrain extends SubsystemBase {
 
     m_drive.setMaxOutput(DriveConstants.kMaxSpeed);
 
-    m_toggle = m_tab.add("Drive Mode", toggleFieldDrive).withPosition(5, 0).getEntry();
+    m_orchestra.addInstrument(m_frontLeftMotor);
+    m_orchestra.addInstrument(m_rearLeftMotor);
+    m_orchestra.addInstrument(m_frontRightMotor);
+    m_orchestra.addInstrument(m_rearRightMotor);
+
+    m_orchestra.loadMusic("motherland.chrp");
+
+    m_toggle = m_tab.add("Drive Mode", toggleFieldDrive).withPosition(4, 0).getEntry();
     m_tab.add("Drivetrain", m_drive).withPosition(0, 0).withSize(4, 2);
+    m_tab.add("Gyro", m_gyro).withPosition(0, 2).withSize(2, 2).withWidget(BuiltInWidgets.kGyro);
   }
 
   public void driveCartesian(double ySpeed, double xSpeed, double zRotation) {
@@ -69,6 +81,18 @@ public class Drivetrain extends SubsystemBase {
 
   public boolean getFieldDriveMode() {
     return toggleFieldDrive;
+  }
+
+  public void playMusic() {
+    m_orchestra.play();
+  }
+
+  public boolean isPlayingMusic() {
+    return m_orchestra.isPlaying();
+  }
+
+  public void stopMusic() {
+    m_orchestra.pause();
   }
 
   public void resetGyro() {
