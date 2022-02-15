@@ -4,12 +4,15 @@
 
 package frc.robot.subsystems;
 
+import java.util.Map;
+
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -21,24 +24,29 @@ public class Shooter extends SubsystemBase {
 
   private final ShuffleboardTab m_tab = Shuffleboard.getTab("Main");
   private final NetworkTableEntry m_rpm;
+  private final NetworkTableEntry m_maxSpeed;
+
+  private double spped;
 
   /** Creates a new Shooter. */
   public Shooter() {
-    m_shooterMotor.setNeutralMode(NeutralMode.Coast);
+    m_shooterMotor.setNeutralMode(NeutralMode.Brake);
 
-    m_shooterMotor.setInverted(InvertType.None);
+    m_shooterMotor.setInverted(InvertType.InvertMotorOutput);
 
     m_shooterMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
 
+
+    m_maxSpeed = m_tab.add("Shooter Speed", 1.0).withPosition(2, 3).withSize(2, 1).withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min", 0, "max", 1)).getEntry();
     m_rpm = m_tab.add("Shooter RPM", getRPM()).withPosition(4, 1).getEntry();
   }
 
   public void runShooter() {
-    m_shooterMotor.set(1);
+    m_shooterMotor.set(spped);
   }
 
   public void stopShooter() {
-    m_shooterMotor.set(1);
+    m_shooterMotor.set(0);
   }
 
   public double getRPM() {
@@ -49,5 +57,6 @@ public class Shooter extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     m_rpm.setNumber(getRPM());
+    spped = m_maxSpeed.getDouble(1.0);
   }
 }

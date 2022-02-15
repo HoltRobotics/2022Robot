@@ -25,7 +25,7 @@ public class Drivetrain extends SubsystemBase {
   private final WPI_TalonFX m_frontLeftMotor = new WPI_TalonFX(DriveConstants.kFrontLeftMotor);
   private final WPI_TalonFX m_rearLeftMotor = new WPI_TalonFX(DriveConstants.kRearLeftMotor);
   private final WPI_TalonFX m_frontRightMotor = new WPI_TalonFX(DriveConstants.kFrontRightMotor);
-  private final WPI_TalonFX m_rearRightMotor = new WPI_TalonFX(DriveConstants.kFrontRightMotor);
+  private final WPI_TalonFX m_rearRightMotor = new WPI_TalonFX(DriveConstants.kRearRightMotor);
 
   private final MecanumDrive m_drive = new MecanumDrive(m_frontLeftMotor, m_rearLeftMotor, m_frontRightMotor, m_rearRightMotor);
 
@@ -48,8 +48,8 @@ public class Drivetrain extends SubsystemBase {
 
     m_frontLeftMotor.setInverted(InvertType.None);
     m_rearLeftMotor.setInverted(InvertType.None);
-    m_frontRightMotor.setInverted(InvertType.None);
-    m_rearRightMotor.setInverted(InvertType.None);
+    m_frontRightMotor.setInverted(InvertType.InvertMotorOutput);
+    m_rearRightMotor.setInverted(InvertType.InvertMotorOutput);
 
     m_drive.setMaxOutput(DriveConstants.kMaxSpeed);
 

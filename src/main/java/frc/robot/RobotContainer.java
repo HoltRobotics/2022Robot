@@ -56,9 +56,9 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     new JoystickButton(m_driver, Button.kA.value).whenPressed(new ToggleFieldDrive(m_drive));
-    new JoystickButton(m_driver, Button.kB.value).whenPressed(new PlayMusic(m_drive));
-    new JoystickButton(m_operator, 1).whenHeld(new FrontIntake(1, m_intake));
-    new JoystickButton(m_operator, 2).whenHeld(new SideIntake(1, m_intake));
+    // new JoystickButton(m_driver, Button.kB.value).whenPressed(new PlayMusic(m_drive));
+    new JoystickButton(m_operator, 1).whenHeld(new FrontIntake(0.5, m_intake));
+    new JoystickButton(m_operator, 2).whenHeld(new SideIntake(0.5, m_intake));
     new JoystickButton(m_operator, 3).whenHeld(new FeedBallsUp(m_feeder));
     new JoystickButton(m_operator, 4).whenHeld(new BallGoBurrrrrr(m_shoot));
   }

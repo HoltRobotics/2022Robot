@@ -14,28 +14,28 @@ package frc.robot;
  */
 public final class Constants {
     public static final class DriveConstants {
-        public static final int kFrontLeftMotor = 0;
-        public static final int kRearLeftMotor = 1;
-        public static final int kFrontRightMotor = 2;
-        public static final int kRearRightMotor = 3;
+        public static final int kFrontLeftMotor = 1;
+        public static final int kRearLeftMotor = 2;
+        public static final int kFrontRightMotor = 3;
+        public static final int kRearRightMotor = 4;
 
         public static final double kMaxSpeed = 1.0;
     }
 
     public static final class IntakeConstants {
-        public static final int kFrontIntakeMotor = 4;
+        public static final int kFrontIntakeMotor = 6;
         public static final int kSideIntakeMotor = 5;
     }
 
     public static final class FeederConstants {
-        public static final int kBeltFeederMotor = 6;
-        public static final int kFrontFeederMotor = 7;
+        public static final int kBeltFeederMotor = 7;
+        public static final int kFrontFeederMotor = 8;
         public static final double kFeederMotorSpeed = 1.0;
     }
 
     public static final class ShooterConstants {
         
-        public static final int kShooterMotor = 8;
+        public static final int kShooterMotor = 9;
     }
 
     public static final class OIConstants {
