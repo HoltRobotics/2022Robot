@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import java.util.Map;
+
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
@@ -33,6 +35,7 @@ public class Drivetrain extends SubsystemBase {
 
   private final ShuffleboardTab m_tab = Shuffleboard.getTab("Main");
   private final NetworkTableEntry m_toggle;
+  private final NetworkTableEntry m_maxSpeed;
 
   public boolean toggleFieldDrive = false;
 
@@ -57,9 +60,10 @@ public class Drivetrain extends SubsystemBase {
 
     m_orchestra.loadMusic("motherland.chrp");
 
-    m_toggle = m_tab.add("Drive Mode", toggleFieldDrive).withPosition(4, 0).getEntry();
+    m_toggle = m_tab.add("Field Drive", toggleFieldDrive).withPosition(4, 0).getEntry();
     m_tab.add("Drivetrain", m_drive).withPosition(0, 0).withSize(4, 2);
     m_tab.add("Gyro", m_gyro).withPosition(0, 2).withSize(2, 2).withWidget(BuiltInWidgets.kGyro);
+    m_maxSpeed = m_tab.add("Max Speed", 1.0).withPosition(2, 2).withSize(2, 1).withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min", 0, "max", 1)).getEntry();
   }
 
   public void driveCartesian(double ySpeed, double xSpeed, double zRotation) {
@@ -68,6 +72,10 @@ public class Drivetrain extends SubsystemBase {
 
   public void driveCartesian(double ySpeed, double xSpeed, double zRotation, double gyroAngle) {
     m_drive.driveCartesian(ySpeed, xSpeed, zRotation, gyroAngle);
+  }
+
+  public void setMaxSpeed(double maxSpeed) {
+    m_drive.setMaxOutput(maxSpeed);
   }
 
   public double getGyroAngle() {
@@ -106,5 +114,6 @@ public class Drivetrain extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    setMaxSpeed(m_maxSpeed.getDouble(1.0));
   }
 }
