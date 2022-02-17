@@ -48,6 +48,13 @@
       "/LiveWindow/Ungrouped/navX-Sensor[4]": "Gyro",
       "/Shuffleboard/Main/Drivetrain": "MecanumDrive",
       "/Shuffleboard/Main/Gyro": "Gyro"
+    },
+    "windows": {
+      "/Shuffleboard/Main/Drivetrain": {
+        "window": {
+          "visible": true
+        }
+      }
     }
   },
   "NetworkTables": {

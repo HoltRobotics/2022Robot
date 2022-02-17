@@ -38,16 +38,25 @@ public class RobotContainer {
   public final Feeder m_feeder = new Feeder();
   public final Shooter m_shoot = new Shooter();
 
-  public final XboxController m_driver = new XboxController(OIConstants.kDriverController);
-  public final Joystick m_operator = new Joystick(OIConstants.kOperatorController);
+//// Xbox Controller as driving controller; T16000M (big) Joystick as operator
+public final XboxController m_driver = new XboxController(OIConstants.kDriverController);
+public final Joystick m_operator = new Joystick(OIConstants.kOperatorController);
+//// T16000M (big) Joystick as driving controller; Xbox Controller as operator
+//public final Joystick m_driver = new Joystick(OIConstants.kOperatorController);
+//public final XboxController m_operator = new XboxController(OIConstants.kDriverController);
 
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
-  public RobotContainer() {
-    // Configure the button bindings
-    configureButtonBindings();
+/** The container for the robot. Contains subsystems, OI devices, and commands. */
+public RobotContainer() {
+  // Configure the button bindings
+  configureButtonBindings();
 
-    m_drive.setDefaultCommand(new CartesianDrive(() -> -m_driver.getLeftY(), () -> m_driver.getLeftX(), () -> m_driver.getRightX(), m_drive));
-  }
+  //// Xbox Controller as driving controller; T16000M (big) Joystick as operator
+  m_drive.setDefaultCommand(new CartesianDrive(() -> -m_driver.getLeftY(), () -> m_driver.getLeftX(), () -> m_driver.getRightX(), m_drive));
+  
+  //// T16000M (big) Joystick as driving controller; Xbox Controller as operator
+  //m_drive.setDefaultCommand(new CartesianDrive(() -> -m_driver.getY(), () -> m_driver.getX(), () -> m_driver.getTwist(), m_drive));
+
+}
 
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
