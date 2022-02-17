@@ -2,19 +2,21 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.Feeder;
+package frc.robot.commands.Shoot;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Feeder;
+import frc.robot.subsystems.Shooter;
 
-public class FeedBallsUp extends CommandBase {
-  private final Feeder m_feeder;
-
-  /** Creates a new Feeder. */
-  public FeedBallsUp(Feeder feeder) {
+public class WaitForSpinUp extends CommandBase {
+  private final double m_rpm;
+  private final Shooter m_shooter;
+  
+  /** Creates a new WaitForSpinUp. */
+  public WaitForSpinUp(double rpm, Shooter shooter) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_feeder = feeder;
-    addRequirements(m_feeder);
+    m_rpm = rpm;
+    m_shooter = shooter;
+    addRequirements(m_shooter);
   }
 
   // Called when the command is initially scheduled.
@@ -23,19 +25,16 @@ public class FeedBallsUp extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    m_feeder.runFeeder();
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_feeder.stopFeeder();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return Math.abs(m_shooter.getRPM()) >= m_rpm;
   }
 }

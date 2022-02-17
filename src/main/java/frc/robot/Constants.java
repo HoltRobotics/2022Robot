@@ -23,6 +23,7 @@ public final class Constants {
     }
 
     public static final class IntakeConstants {
+        //TODO: swap the ids where they fall in line :)
         public static final int kFrontIntakeMotor = 6;
         public static final int kSideIntakeMotor = 5;
     }
@@ -34,8 +35,12 @@ public final class Constants {
     }
 
     public static final class ShooterConstants {
-        
         public static final int kShooterMotor = 9;
+        public static final double kShooterMotorSpeed = 0.75;
+        //TODO: calculate theses for the robot
+        public static final double kS = 0.4;
+        public static final double kV = 0.1;
+        public static final double kA = 0.0;
     }
 
     public static final class OIConstants {

@@ -8,8 +8,8 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Intake;
 
 public class SideIntake extends CommandBase {
-  public final double m_speed;
-  public final Intake m_intake;
+  private final double m_speed;
+  private final Intake m_intake;
   
   /** Creates a new SideIntake. */
   public SideIntake(double speed, Intake intake) {

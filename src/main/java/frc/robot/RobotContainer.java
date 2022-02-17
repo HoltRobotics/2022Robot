@@ -13,12 +13,13 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.Drive.CartesianDrive;
-import frc.robot.commands.Drive.PlayMusic;
+// import frc.robot.commands.Drive.PlayMusic;
 import frc.robot.commands.Drive.ToggleFieldDrive;
 import frc.robot.commands.Feeder.FeedBallsUp;
 import frc.robot.commands.Intake.FrontIntake;
 import frc.robot.commands.Intake.SideIntake;
 import frc.robot.commands.Shoot.BallGoBurrrrrr;
+import frc.robot.commands.Shoot.StartShooter;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Intake;
@@ -56,6 +57,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     new JoystickButton(m_driver, Button.kA.value).whenPressed(new ToggleFieldDrive(m_drive));
+    new JoystickButton(m_driver, Button.kB.value).whenPressed(new StartShooter(m_shoot));
     // new JoystickButton(m_driver, Button.kB.value).whenPressed(new PlayMusic(m_drive));
     new JoystickButton(m_operator, 1).whenHeld(new FrontIntake(0.5, m_intake));
     new JoystickButton(m_operator, 2).whenHeld(new SideIntake(0.5, m_intake));

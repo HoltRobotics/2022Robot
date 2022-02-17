@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Shooter;
 
 public class BallGoBurrrrrr extends CommandBase {
-  public final Shooter m_shoot;
+  private final Shooter m_shoot;
 
   /** Creates a new BallGoBurrrrrr. */
   public BallGoBurrrrrr(Shooter shoot) {
@@ -24,7 +24,7 @@ public class BallGoBurrrrrr extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_shoot.runShooter();
+    m_shoot.startShooter();
   }
 
   // Called once the command ends or is interrupted.

@@ -10,10 +10,10 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
 
 public class CartesianDrive extends CommandBase {
-  public final DoubleSupplier m_ySpeed;
-  public final DoubleSupplier m_xSpeed;
-  public final DoubleSupplier m_zRotation;
-  public final Drivetrain m_drive;
+  private final DoubleSupplier m_ySpeed;
+  private final DoubleSupplier m_xSpeed;
+  private final DoubleSupplier m_zRotation;
+  private final Drivetrain m_drive;
 
   /** Creates a new CartesianDrive. */
   public CartesianDrive(DoubleSupplier ySpeed, DoubleSupplier xSpeed, DoubleSupplier zRotation, Drivetrain drive) {
