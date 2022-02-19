@@ -20,6 +20,7 @@ public final class Constants {
         public static final int kRearRightMotor = 4;
 
         public static final double kMaxSpeed = 1.0;
+        public static final double kSlowDriveSpeed = 0.5;
     }
 
     public static final class IntakeConstants {
@@ -41,6 +42,13 @@ public final class Constants {
         public static final double kS = 0.4;
         public static final double kV = 0.1;
         public static final double kA = 0.0;
+    }
+
+    public static final class ClimbConstants {
+        public static final int kArmMotor = 10;
+        public static final int kHookMotor = 11;
+        public static final double kArmMotorSpeed = 0.5;
+        public static final double kHookMotorSpeed = 1.0;
     }
 
     public static final class OIConstants {

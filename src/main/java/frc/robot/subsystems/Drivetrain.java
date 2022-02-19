@@ -27,7 +27,7 @@ public class Drivetrain extends SubsystemBase {
   private final WPI_TalonFX m_frontRightMotor = new WPI_TalonFX(DriveConstants.kFrontRightMotor);
   private final WPI_TalonFX m_rearRightMotor = new WPI_TalonFX(DriveConstants.kRearRightMotor);
 
-  private final MecanumDrive m_drive = new MecanumDrive(m_frontLeftMotor, m_rearLeftMotor, m_frontRightMotor, m_rearRightMotor);
+  private MecanumDrive m_drive = new MecanumDrive(m_frontLeftMotor, m_rearLeftMotor, m_frontRightMotor, m_rearRightMotor);
 
   private final Orchestra m_orchestra = new Orchestra();
 
@@ -37,7 +37,7 @@ public class Drivetrain extends SubsystemBase {
   private final NetworkTableEntry m_toggle;
   private final NetworkTableEntry m_maxSpeed;
 
-  public boolean toggleFieldDrive = false;
+  public boolean toggleFieldDrive = true;
 
   /** Creates a new Drivetrain. */
   public Drivetrain() {
@@ -52,6 +52,8 @@ public class Drivetrain extends SubsystemBase {
     m_rearRightMotor.setInverted(InvertType.InvertMotorOutput);
 
     m_drive.setMaxOutput(DriveConstants.kMaxSpeed);
+
+    m_drive.setDeadband(0.1);
 
     m_orchestra.addInstrument(m_frontLeftMotor);
     m_orchestra.addInstrument(m_rearLeftMotor);
@@ -92,6 +94,7 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public void playMusic() {
+    m_drive.close();
     m_orchestra.play();
   }
 
@@ -101,10 +104,19 @@ public class Drivetrain extends SubsystemBase {
 
   public void stopMusic() {
     m_orchestra.pause();
+    m_drive = new MecanumDrive(m_frontLeftMotor, m_rearLeftMotor, m_frontRightMotor, m_rearRightMotor);
   }
 
   public void resetGyro() {
     m_gyro.reset();
+  }
+
+  public void slowDriveSpeed() {
+    m_drive.setMaxOutput(DriveConstants.kSlowDriveSpeed);
+  }
+
+  public void normalDriveSpeed() {
+    m_drive.setMaxOutput(1.0);
   }
 
   public void stopDrive() {

@@ -23,7 +23,7 @@ public class FeedAndShoot extends SequentialCommandGroup {
     addCommands(
       new StartShooter(shooter),
       new WaitForSpinUp(rpm, shooter),
-      new FeedBallsUp(feeder),
+      new FeedBallsUp(feeder).withTimeout(1),
       new StopShooter(shooter)
     );
   }

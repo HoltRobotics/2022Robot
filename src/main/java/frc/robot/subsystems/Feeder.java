@@ -20,12 +20,16 @@ public class Feeder extends SubsystemBase {
     m_beltFeederMotor.setNeutralMode(NeutralMode.Brake);
     m_frontFeederMotor.setNeutralMode(NeutralMode.Brake);
 
-    m_beltFeederMotor.setInverted(InvertType.None);
-    m_frontFeederMotor.setInverted(InvertType.None);
+    m_beltFeederMotor.setInverted(InvertType.InvertMotorOutput);
+    m_frontFeederMotor.setInverted(InvertType.InvertMotorOutput);
   }
 
   public void runFeeder() {
     m_beltFeederMotor.set(FeederConstants.kFeederMotorSpeed);
+    m_frontFeederMotor.set(FeederConstants.kFeederMotorSpeed);
+  }
+
+  public void runFrontFeeder() {
     m_frontFeederMotor.set(FeederConstants.kFeederMotorSpeed);
   }
 
