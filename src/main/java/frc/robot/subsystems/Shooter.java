@@ -44,18 +44,32 @@ public class Shooter extends SubsystemBase {
     m_maxSpeed.setDouble(ShooterConstants.kShooterMotorSpeed);
   }
 
+  /**
+   * Runs the shooter at the selected speed from the Shuffleboard Tab.
+   */
   public void startShooter() {
     m_shooterMotor.set(m_speed);
   }
 
+  /**
+   * Runs the shooter at the supplied voltage level, even if the battery voltage is below 12V
+   * @param voltage The voltage to output.
+   */
   public void runShooterVoltage(double voltage) {
     m_shooterMotor.setVoltage(voltage);
   }
 
+  /**
+   * Stops the shooter motor.
+   */
   public void stopShooter() {
-    m_shooterMotor.stopMotor();;
+    m_shooterMotor.stopMotor();
   }
 
+  /**
+   * Returns the current RPM of the Shooter motor.
+   * @return the RPM of the Shooter motor.
+   */
   public double getRPM() {
     return m_shooterMotor.getSelectedSensorVelocity() * 600 / 2048;
   }

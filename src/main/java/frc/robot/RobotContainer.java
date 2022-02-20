@@ -44,7 +44,8 @@ public class RobotContainer {
   public final Climb m_climb = new Climb();
 
   // Controllers
-  public final XboxController m_driver = new XboxController(OIConstants.kDriverController);
+  public final XboxController m_xboxDriver = new XboxController(OIConstants.kXboxDriverController);
+  public final Joystick m_flightDriver = new Joystick(OIConstants.kFlightDriverController);
   public final Joystick m_operator = new Joystick(OIConstants.kOperatorController);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -52,7 +53,12 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
 
-    m_drive.setDefaultCommand(new CartesianDrive(() -> -m_driver.getLeftY(), () -> m_driver.getLeftX(), () -> m_driver.getRightX() * 0.75, m_drive));
+    m_drive.setDefaultCommand(new CartesianDrive(
+      () -> -m_xboxDriver.getLeftY() + -m_flightDriver.getY(),
+      () -> m_xboxDriver.getLeftX() + m_flightDriver.getX(),
+      () -> m_xboxDriver.getRightX() + m_flightDriver.getTwist(),
+      m_drive)
+    );
   }
 
   /**
@@ -62,11 +68,11 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(m_driver, Button.kA.value).whenPressed(new ToggleFieldDrive(m_drive));
-    new JoystickButton(m_driver, Button.kB.value).whenHeld(new SlowDrive(m_drive));
-    new JoystickButton(m_driver, Button.kY.value).whenPressed(new StopShooter(m_shoot));
-    new JoystickButton(m_driver, Button.kLeftBumper.value).whenHeld(new FrontNFeed(m_intake, m_feeder));
-    new JoystickButton(m_driver, Button.kRightBumper.value).whenHeld(new SideNFeed(m_intake, m_feeder));
+    new JoystickButton(m_xboxDriver, Button.kA.value).whenPressed(new ToggleFieldDrive(m_drive));
+    new JoystickButton(m_xboxDriver, Button.kB.value).whenHeld(new SlowDrive(m_drive));
+    new JoystickButton(m_xboxDriver, Button.kY.value).whenPressed(new StopShooter(m_shoot));
+    new JoystickButton(m_xboxDriver, Button.kLeftBumper.value).whenHeld(new FrontNFeed(m_intake, m_feeder));
+    new JoystickButton(m_xboxDriver, Button.kRightBumper.value).whenHeld(new SideNFeed(m_intake, m_feeder));
 
     new JoystickButton(m_operator, 1).whenHeld(new FrontNFeed(m_intake, m_feeder));
     new JoystickButton(m_operator, 2).whenHeld(new SideNFeed(m_intake, m_feeder));

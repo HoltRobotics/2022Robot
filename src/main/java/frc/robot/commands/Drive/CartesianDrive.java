@@ -40,9 +40,9 @@ public class CartesianDrive extends CommandBase {
   @Override
   public void execute() {
     if(m_drive.getFieldDriveMode()) {
-      m_drive.driveCartesian(m_ySpeed.getAsDouble(), m_xSpeed.getAsDouble(), m_zRotation.getAsDouble());
-    } else {
       m_drive.driveCartesian(m_ySpeed.getAsDouble(), m_xSpeed.getAsDouble(), m_zRotation.getAsDouble(), m_drive.getGyroAngle());
+    } else {
+      m_drive.driveCartesian(m_ySpeed.getAsDouble(), m_xSpeed.getAsDouble(), m_zRotation.getAsDouble());
     }
   }
 

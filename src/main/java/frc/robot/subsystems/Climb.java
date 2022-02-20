@@ -26,18 +26,30 @@ public class Climb extends SubsystemBase {
     m_hooks.setIdleMode(IdleMode.kBrake);
   }
 
+  /**
+   * Raises and then lowers the climbing arms.
+   */
   public void runArms() {
     m_arm.set(ClimbConstants.kArmMotorSpeed);
   }
 
+  /**
+   * Slides the hooks.
+   */
   public void slideHooks() {
     m_hooks.set(ClimbConstants.kHookMotorSpeed);
   }
 
+  /**
+   * Stops the climbing motor.
+   */
   public void stopArms() {
     m_arm.stopMotor();
   }
 
+  /**
+   * Stops the hooks motor.
+   */
   public void stopHooks() {
     m_hooks.stopMotor();
   }

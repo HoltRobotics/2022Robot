@@ -26,15 +26,24 @@ public class Feeder extends SubsystemBase {
     m_frontFeederMotor.setInverted(InvertType.InvertMotorOutput);
   }
 
+  /**
+   * Runs both the front feeder and the belt feeder at the Feeder Motor Speed Contant.
+   */
   public void runFeeder() {
     m_beltFeederMotor.set(FeederConstants.kFeederMotorSpeed);
     m_frontFeederMotor.set(FeederConstants.kFeederMotorSpeed);
   }
 
+  /**
+   * Runs only the front feed at the Feeder Motor Speed Contant.
+   */
   public void runFrontFeeder() {
     m_frontFeederMotor.set(FeederConstants.kFeederMotorSpeed);
   }
 
+  /**
+   * Stops both feeder motors.
+   */
   public void stopFeeder() {
     m_beltFeederMotor.stopMotor();
     m_frontFeederMotor.stopMotor();

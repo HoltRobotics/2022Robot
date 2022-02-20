@@ -26,14 +26,21 @@ public class Intake extends SubsystemBase {
     m_sideIntakeMotor.setInverted(InvertType.None);
   }
 
+  /**
+   * Runs the Front Intake at the Intake Motor Speed Constant.
+   */
   public void runFrontIntake() {
     m_frontIntakeMotor.set(IntakeConstants.kIntakeMotorSpeed);
   }
 
+  /**
+   * Runs the Side Intake at the Intake Motor Speed Constant.
+   */
   public void runSideIntake() {
     m_sideIntakeMotor.set(IntakeConstants.kIntakeMotorSpeed);
   }
 
+  /** Stops both the front intake and the side intake motors. */
   public void stopIntakes() {
     m_frontIntakeMotor.stopMotor();
     m_sideIntakeMotor.stopMotor();

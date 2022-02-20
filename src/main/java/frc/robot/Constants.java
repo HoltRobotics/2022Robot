@@ -21,12 +21,12 @@ public final class Constants {
 
         public static final double kDefaultSpeed = 1.0;
         public static final double kSlowDriveSpeed = 0.5;
+        public static final double kTurningSlowDown = 0.75;
     }
 
     public static final class IntakeConstants {
-        //TODO: swap the ids where they fall in line :)
-        public static final int kFrontIntakeMotor = 6;
         public static final int kSideIntakeMotor = 5;
+        public static final int kFrontIntakeMotor = 6;
         public static final double kIntakeMotorSpeed = 0.5;
     }
 
@@ -56,7 +56,8 @@ public final class Constants {
     }
 
     public static final class OIConstants {
-        public static final int kDriverController = 0;
-        public static final int kOperatorController = 1;
+        public static final int kXboxDriverController = 0;
+        public static final int kFlightDriverController = 1;
+        public static final int kOperatorController = 2;
     }
 }
