@@ -10,7 +10,10 @@ import frc.robot.subsystems.Climb;
 public class RaiseArms extends CommandBase {
   private final Climb m_climb;
   
-  /** Creates a new RaiseArms. */
+  /**
+   * Command to raise the climbing arms on the robot.
+   * @param climb Required Climb Subsystem
+   */
   public RaiseArms(Climb climb) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_climb = climb;

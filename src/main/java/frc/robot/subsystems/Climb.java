@@ -15,7 +15,9 @@ public class Climb extends SubsystemBase {
   private final CANSparkMax m_arm = new CANSparkMax(ClimbConstants.kArmMotor, MotorType.kBrushless);
   private final CANSparkMax m_hooks = new CANSparkMax(ClimbConstants.kHookMotor, MotorType.kBrushless);
 
-  /** Creates a new Climbing. */
+  /**
+   * Climb Subsystem
+   */
   public Climb() {
     m_arm.setInverted(false);
     m_hooks.setInverted(false);

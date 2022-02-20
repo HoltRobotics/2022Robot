@@ -11,7 +11,12 @@ public class WaitForSpinUp extends CommandBase {
   private final double m_rpm;
   private final Shooter m_shooter;
   
-  /** Creates a new WaitForSpinUp. */
+  /**
+   * Command that will start the shooter and waits for it to pass the specified RPM.
+   * Shooter will overshoot the specified RPM. Will only wait for it to pass the specified RPM.
+   * @param rpm Target RPM for the shooter.
+   * @param shooter Required Shooter Subsystem
+   */
   public WaitForSpinUp(double rpm, Shooter shooter) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_rpm = rpm;

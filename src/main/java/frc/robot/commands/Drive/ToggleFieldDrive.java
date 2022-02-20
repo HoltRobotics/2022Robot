@@ -13,6 +13,10 @@ import frc.robot.subsystems.Drivetrain;
 public class ToggleFieldDrive extends InstantCommand {
   private final Drivetrain m_drive;
 
+  /**
+   * Command that will toggle field-oriented driving or not.
+   * @param drive Required Feeder Subsystem
+   */
   public ToggleFieldDrive(Drivetrain drive) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_drive = drive;

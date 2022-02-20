@@ -12,11 +12,13 @@ import frc.robot.commands.Shoot.WaitForSpinUp;
 import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Shooter;
 
-// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
-// information, see:
-// https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class FeedAndShoot extends SequentialCommandGroup {
-  /** Creates a new FeedAndShoot. */
+  /**
+   * Command Group that runs the shooter, waits for it to get up to the specified speed, then feeds the balls to the feeder, then stops everything.
+   * @param rpm Taget RPM of the shooter.
+   * @param shooter Required Shooter Subsystem
+   * @param feeder Required Feeder Subsystem
+   */
   public FeedAndShoot(double rpm, Shooter shooter, Feeder feeder) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());

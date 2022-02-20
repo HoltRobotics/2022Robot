@@ -15,7 +15,13 @@ public class CartesianDrive extends CommandBase {
   private final DoubleSupplier m_zRotation;
   private final Drivetrain m_drive;
 
-  /** Creates a new CartesianDrive. */
+  /**
+   * Main command to drive the robot.
+   * @param ySpeed The robot's speed along the Y axis [-1.0..1.0]. Forward is positive.
+   * @param xSpeed The robot's speed along the X axis [-1.0..1.0]. Right is positive.
+   * @param zRotation The robot's rotation rate around the Z axis [-1.0..1.0]. Clockwise is positive.
+   * @param drive Requried Drive Subsystem
+   */
   public CartesianDrive(DoubleSupplier ySpeed, DoubleSupplier xSpeed, DoubleSupplier zRotation, Drivetrain drive) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_ySpeed = ySpeed;
@@ -30,6 +36,7 @@ public class CartesianDrive extends CommandBase {
   public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
+  // Gets the driving mode to use field-oriented controls or not. 
   @Override
   public void execute() {
     if(m_drive.getFieldDriveMode()) {

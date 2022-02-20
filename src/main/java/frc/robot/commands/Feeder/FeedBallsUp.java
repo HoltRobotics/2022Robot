@@ -10,7 +10,10 @@ import frc.robot.subsystems.Feeder;
 public class FeedBallsUp extends CommandBase {
   private final Feeder m_feeder;
 
-  /** Creates a new Feeder. */
+  /**
+   * Command that runs both the front feeder and the belt feeder up.
+   * @param feeder Required Feeder Subsystem
+   */
   public FeedBallsUp(Feeder feeder) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_feeder = feeder;

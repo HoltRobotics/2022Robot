@@ -10,7 +10,10 @@ import frc.robot.subsystems.Drivetrain;
 public class PlayMusic extends CommandBase {
   private final Drivetrain m_drive;
 
-  /** Creates a new PlayMusic. */
+  /**
+   * Command to make the Falcons play music.
+   * @param drive Required Drive Subsystem
+   */
   public PlayMusic(Drivetrain drive) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_drive = drive;

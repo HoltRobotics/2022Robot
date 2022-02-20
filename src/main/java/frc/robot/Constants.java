@@ -19,7 +19,7 @@ public final class Constants {
         public static final int kFrontRightMotor = 3;
         public static final int kRearRightMotor = 4;
 
-        public static final double kMaxSpeed = 1.0;
+        public static final double kDefaultSpeed = 1.0;
         public static final double kSlowDriveSpeed = 0.5;
     }
 
@@ -27,6 +27,7 @@ public final class Constants {
         //TODO: swap the ids where they fall in line :)
         public static final int kFrontIntakeMotor = 6;
         public static final int kSideIntakeMotor = 5;
+        public static final double kIntakeMotorSpeed = 0.5;
     }
 
     public static final class FeederConstants {
@@ -42,6 +43,9 @@ public final class Constants {
         public static final double kS = 0.4;
         public static final double kV = 0.1;
         public static final double kA = 0.0;
+        public static final double kP = 0.0;
+        public static final double kI = 0.0;
+        public static final double kD = 0.0;
     }
 
     public static final class ClimbConstants {

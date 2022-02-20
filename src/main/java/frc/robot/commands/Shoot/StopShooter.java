@@ -7,12 +7,13 @@ package frc.robot.commands.Shoot;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.Shooter;
 
-// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
-// information, see:
-// https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class StopShooter extends InstantCommand {
   private final Shooter m_shooter;
 
+  /**
+   * Command to stop the shooter if it is running.
+   * @param shooter Required Shooter Subsystem.
+   */
   public StopShooter(Shooter shooter) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_shooter = shooter;

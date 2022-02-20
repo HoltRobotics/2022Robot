@@ -7,11 +7,14 @@ package frc.robot.commands.Feeder;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Feeder;
 
-public class FeedFrontShooter extends CommandBase {
+public class FeedFront extends CommandBase {
   private final Feeder m_feeder;
 
-  /** Creates a new FeedFrontShooter. */
-  public FeedFrontShooter(Feeder feeder) {
+  /**
+   * Command to run only the front feeder up.
+   * @param feeder Required Feeder Subsystem
+   */
+  public FeedFront(Feeder feeder) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_feeder = feeder;
     addRequirements(m_feeder);

@@ -15,7 +15,9 @@ public class Feeder extends SubsystemBase {
   private final WPI_VictorSPX m_beltFeederMotor = new WPI_VictorSPX(FeederConstants.kBeltFeederMotor);
   private final WPI_VictorSPX m_frontFeederMotor = new WPI_VictorSPX(FeederConstants.kFrontFeederMotor);
 
-  /** Creates a new Feeder. */
+  /**
+   * Feeder Subsystem
+   */
   public Feeder() {
     m_beltFeederMotor.setNeutralMode(NeutralMode.Brake);
     m_frontFeederMotor.setNeutralMode(NeutralMode.Brake);

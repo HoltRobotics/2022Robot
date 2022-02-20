@@ -38,8 +38,11 @@ public class Drivetrain extends SubsystemBase {
   private final NetworkTableEntry m_maxSpeed;
 
   public boolean toggleFieldDrive = true;
+  public double tempSpeed;
 
-  /** Creates a new Drivetrain. */
+  /**
+   * Drivetrain Subsystem
+   */
   public Drivetrain() {
     m_frontLeftMotor.setNeutralMode(NeutralMode.Brake);
     m_rearLeftMotor.setNeutralMode(NeutralMode.Brake);
@@ -50,8 +53,6 @@ public class Drivetrain extends SubsystemBase {
     m_rearLeftMotor.setInverted(InvertType.None);
     m_frontRightMotor.setInverted(InvertType.InvertMotorOutput);
     m_rearRightMotor.setInverted(InvertType.InvertMotorOutput);
-
-    m_drive.setMaxOutput(DriveConstants.kMaxSpeed);
 
     m_drive.setDeadband(0.1);
 
@@ -66,6 +67,8 @@ public class Drivetrain extends SubsystemBase {
     m_tab.add("Drivetrain", m_drive).withPosition(0, 0).withSize(4, 2);
     m_tab.add("Gyro", m_gyro).withPosition(0, 2).withSize(2, 2).withWidget(BuiltInWidgets.kGyro);
     m_maxSpeed = m_tab.add("Max Speed", 1.0).withPosition(2, 2).withSize(2, 1).withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min", 0, "max", 1)).getEntry();
+
+    m_maxSpeed.setDouble(DriveConstants.kDefaultSpeed);
   }
 
   public void driveCartesian(double ySpeed, double xSpeed, double zRotation) {
@@ -81,7 +84,7 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public double getGyroAngle() {
-    return m_gyro.getAngle();
+    return m_gyro.getRoll();
   }
 
   public void toggleFieldDrive() {
@@ -112,11 +115,12 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public void slowDriveSpeed() {
-    m_drive.setMaxOutput(DriveConstants.kSlowDriveSpeed);
+    tempSpeed = m_maxSpeed.getDouble(1.0);
+    m_maxSpeed.setDouble(tempSpeed * DriveConstants.kSlowDriveSpeed);
   }
 
   public void normalDriveSpeed() {
-    m_drive.setMaxOutput(1.0);
+    m_maxSpeed.setDouble(tempSpeed);
   }
 
   public void stopDrive() {

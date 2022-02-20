@@ -9,8 +9,11 @@ import frc.robot.subsystems.Drivetrain;
 
 public class SlowDrive extends CommandBase {
   private final Drivetrain m_drive;
-  
-  /** Creates a new SlowDrive. */
+ 
+  /**
+   * Command that cuts the speed of the robot in halve when running.
+   * @param drive Required Drive Subsystem
+   */
   public SlowDrive(Drivetrain drive) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_drive = drive;

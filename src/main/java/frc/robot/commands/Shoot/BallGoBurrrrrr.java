@@ -10,10 +10,13 @@ import frc.robot.subsystems.Shooter;
 public class BallGoBurrrrrr extends CommandBase {
   private final Shooter m_shoot;
 
-  /** Creates a new BallGoBurrrrrr. */
-  public BallGoBurrrrrr(Shooter shoot) {
+  /**
+   * Command to run the shooter forwards.
+   * @param shooter Required Shootere Subsystem
+   */
+  public BallGoBurrrrrr(Shooter shooter) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_shoot = shoot;
+    m_shoot = shooter;
     addRequirements(m_shoot);
   }
 

@@ -15,7 +15,9 @@ public class Intake extends SubsystemBase {
   private final WPI_VictorSPX m_frontIntakeMotor = new WPI_VictorSPX(IntakeConstants.kFrontIntakeMotor);
   private final WPI_VictorSPX m_sideIntakeMotor = new WPI_VictorSPX(IntakeConstants.kSideIntakeMotor);
 
-  /** Creates a new Intake. */
+  /**
+   * Intake Subsystem
+   */
   public Intake() {
     m_frontIntakeMotor.setNeutralMode(NeutralMode.Coast);
     m_sideIntakeMotor.setNeutralMode(NeutralMode.Coast);
@@ -24,12 +26,12 @@ public class Intake extends SubsystemBase {
     m_sideIntakeMotor.setInverted(InvertType.None);
   }
 
-  public void runFrontIntake(double speed) {
-    m_frontIntakeMotor.set(speed);
+  public void runFrontIntake() {
+    m_frontIntakeMotor.set(IntakeConstants.kIntakeMotorSpeed);
   }
 
-  public void runSideIntake(double speed) {
-    m_sideIntakeMotor.set(speed);
+  public void runSideIntake() {
+    m_sideIntakeMotor.set(IntakeConstants.kIntakeMotorSpeed);
   }
 
   public void stopIntakes() {

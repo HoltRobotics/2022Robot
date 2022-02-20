@@ -8,13 +8,14 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Intake;
 
 public class SideIntake extends CommandBase {
-  private final double m_speed;
   private final Intake m_intake;
   
-  /** Creates a new SideIntake. */
-  public SideIntake(double speed, Intake intake) {
+  /**
+   * Command that runs the side intake forwards.
+   * @param intake Required Intake Subsystem
+   */
+  public SideIntake(Intake intake) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_speed = speed;
     m_intake = intake;
     addRequirements(m_intake);
   }
@@ -26,13 +27,13 @@ public class SideIntake extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_intake.runSideIntake(m_speed);
+    m_intake.runSideIntake();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_intake.runSideIntake(0);
+    m_intake.stopIntakes();
   }
 
   // Returns true when the command should end.

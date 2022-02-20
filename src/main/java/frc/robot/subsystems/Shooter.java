@@ -11,7 +11,6 @@ import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
-import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -23,15 +22,15 @@ public class Shooter extends SubsystemBase {
   
   private final WPI_TalonFX m_shooterMotor = new WPI_TalonFX(ShooterConstants.kShooterMotor);
 
-  private final SimpleMotorFeedforward m_feedforward = new SimpleMotorFeedforward(ShooterConstants.kS, ShooterConstants.kV, ShooterConstants.kA);
-
   private final ShuffleboardTab m_tab = Shuffleboard.getTab("Main");
   private final NetworkTableEntry m_rpm;
   private final NetworkTableEntry m_maxSpeed;
 
   private double m_speed;
 
-  /** Creates a new Shooter. */
+  /**
+   * Shooter Subsystem
+   */
   public Shooter() {
     m_shooterMotor.setNeutralMode(NeutralMode.Brake);
 
@@ -49,8 +48,12 @@ public class Shooter extends SubsystemBase {
     m_shooterMotor.set(m_speed);
   }
 
+  public void runShooterVoltage(double voltage) {
+    m_shooterMotor.setVoltage(voltage);
+  }
+
   public void stopShooter() {
-    m_shooterMotor.set(0);
+    m_shooterMotor.stopMotor();;
   }
 
   public double getRPM() {
