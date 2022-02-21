@@ -2,7 +2,9 @@
   "SysId": {
     "Analysis Type": "General Mechanism",
     "NetworkTables Settings": {
-      "serverTeam": "6078"
-    }
+      "serverTeam": "localhost"
+    },
+    "mode": "Client",
+    "serverTeam": "localhost"
   }
 }

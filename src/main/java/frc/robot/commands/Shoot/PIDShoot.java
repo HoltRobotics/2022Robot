@@ -7,22 +7,24 @@ package frc.robot.commands.Shoot;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.ShooterPID;
 
-public class StopShooter extends InstantCommand {
-  private final ShooterPID m_shooter;
+// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
+// information, see:
+// https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
+public class PIDShoot extends InstantCommand {
+  private final ShooterPID m_shoot;
+  private final int m_rpm;
 
-  /**
-   * Command to stop the shooter if it is running.
-   * @param shooter Required Shooter Subsystem.
-   */
-  public StopShooter(ShooterPID shooter) {
+  public PIDShoot(int rpm, ShooterPID shoot) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_shooter = shooter;
-    addRequirements(m_shooter);
+    m_rpm = rpm;
+    m_shoot = shoot;
+    addRequirements(shoot);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_shooter.disable();
+    m_shoot.setRPM(m_rpm);
+    m_shoot.startShooter();
   }
 }

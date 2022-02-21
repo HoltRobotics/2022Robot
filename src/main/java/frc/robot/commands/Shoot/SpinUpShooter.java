@@ -6,21 +6,24 @@ package frc.robot.commands.Shoot;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.Constants.ShooterConstants;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.ShooterPID;
 
 public class SpinUpShooter extends PIDCommand {
-  private final Shooter m_shooter;
+  private final ShooterPID m_shooter;
   private static double m_motorOutput;
-  private static final SimpleMotorFeedforward m_feedforward = new SimpleMotorFeedforward(ShooterConstants.kS, ShooterConstants.kV, ShooterConstants.kA);
+  private static final SimpleMotorFeedforward m_feedforward = new SimpleMotorFeedforward(ShooterConstants.kS, ShooterConstants.kV);
 
   /**
    * Command to spin the shooter at the specified RPM.
    * @param targetRPM RPM to have the shooter spin at.
    * @param shooter Required Shooter Subsystem
+   * 
+   * @deprecated No longer needed. Use {@link PIDShoot} to set RPM and enable. Then {@link StopShooter} to disable.
    */
-  public SpinUpShooter(double targetRPM, Shooter shooter) {
+  public SpinUpShooter(double targetRPM, ShooterPID shooter) {
     super(
         // The controller that the command will use
         new PIDController(0, 0, 0),
@@ -38,6 +41,7 @@ public class SpinUpShooter extends PIDCommand {
     // Configure additional PID options by calling `getController` here.
     m_shooter = shooter;
     addRequirements(m_shooter);
+    m_shooter.getTab().add("PID Controller", getController()).withPosition(4, 2).withSize(1, 2).withWidget(BuiltInWidgets.kPIDController);
   }
 
   // Called once the command ends or is interrupted.
