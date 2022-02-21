@@ -5,18 +5,20 @@
 package frc.robot.commands.Shoot;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.ShooterPID;
 
 public class BallGoBurrrrrr extends CommandBase {
-  private final Shooter m_shoot;
+  private final ShooterPID m_shoot;
 
   /**
    * Command to run the shooter forwards.
-   * @param shooter Required Shootere Subsystem
+   * @param m_shoot Required Shootere Subsystem
+   * 
+   * @deprecated No longer needed. Use {@link PIDShoot} to set RPM and enable. Then {@link StopShooter} to disable.
    */
-  public BallGoBurrrrrr(Shooter shooter) {
+  public BallGoBurrrrrr(ShooterPID shoot) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_shoot = shooter;
+    m_shoot = shoot;
     addRequirements(m_shoot);
   }
 

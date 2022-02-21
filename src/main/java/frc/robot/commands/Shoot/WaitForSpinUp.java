@@ -5,19 +5,21 @@
 package frc.robot.commands.Shoot;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.ShooterPID;
 
 public class WaitForSpinUp extends CommandBase {
   private final double m_rpm;
-  private final Shooter m_shooter;
+  private final ShooterPID m_shooter;
   
   /**
    * Command that will start the shooter and waits for it to pass the specified RPM.
    * Shooter will overshoot the specified RPM. Will only wait for it to pass the specified RPM.
    * @param rpm Target RPM for the shooter.
    * @param shooter Required Shooter Subsystem
+   * 
+   * @deprecated No longer needed. Use {@link PIDShoot} to set RPM and enable. Then {@link StopShooter} to disable.
    */
-  public WaitForSpinUp(double rpm, Shooter shooter) {
+  public WaitForSpinUp(double rpm, ShooterPID shooter) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_rpm = rpm;
     m_shooter = shooter;

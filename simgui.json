@@ -1,5 +1,12 @@
 {
   "HALProvider": {
+    "Other Devices": {
+      "Talon FX[9]": {
+        "header": {
+          "open": true
+        }
+      }
+    },
     "PWM Outputs": {
       "window": {
         "visible": true
@@ -14,6 +21,8 @@
       "/LiveWindow/Feeder": "Subsystem",
       "/LiveWindow/Intake": "Subsystem",
       "/LiveWindow/Shooter": "Subsystem",
+      "/LiveWindow/ShooterPID": "Subsystem",
+      "/LiveWindow/ShooterPID/PID Controller": "PIDController",
       "/LiveWindow/Ungrouped/DifferentialDrive[1]": "DifferentialDrive",
       "/LiveWindow/Ungrouped/MecanumDrive[1]": "MecanumDrive",
       "/LiveWindow/Ungrouped/PIDController[1]": "PIDController",
@@ -28,7 +37,8 @@
       "/LiveWindow/Ungrouped/Victor SPX [8]": "Motor Controller",
       "/LiveWindow/Ungrouped/navX-Sensor[4]": "Gyro",
       "/Shuffleboard/Main/Drivetrain": "MecanumDrive",
-      "/Shuffleboard/Main/Gyro": "Gyro"
+      "/Shuffleboard/Main/Gyro": "Gyro",
+      "/Shuffleboard/Main/PID Controller": "PIDController"
     },
     "windows": {
       "/LiveWindow/Ungrouped/Scheduler": {
@@ -37,6 +47,11 @@
         }
       },
       "/Shuffleboard/Main/Drivetrain": {
+        "window": {
+          "visible": true
+        }
+      },
+      "/Shuffleboard/Main/Gyro": {
         "window": {
           "visible": true
         }

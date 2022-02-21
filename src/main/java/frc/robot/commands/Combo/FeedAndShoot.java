@@ -6,11 +6,10 @@ package frc.robot.commands.Combo;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.Feeder.FeedBallsUp;
-import frc.robot.commands.Shoot.StartShooter;
+import frc.robot.commands.Shoot.PIDShoot;
 import frc.robot.commands.Shoot.StopShooter;
-import frc.robot.commands.Shoot.WaitForSpinUp;
 import frc.robot.subsystems.Feeder;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.ShooterPID;
 
 public class FeedAndShoot extends SequentialCommandGroup {
   /**
@@ -19,12 +18,11 @@ public class FeedAndShoot extends SequentialCommandGroup {
    * @param shooter Required Shooter Subsystem
    * @param feeder Required Feeder Subsystem
    */
-  public FeedAndShoot(double rpm, Shooter shooter, Feeder feeder) {
+  public FeedAndShoot(int rpm, ShooterPID shooter, Feeder feeder) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new StartShooter(shooter),
-      new WaitForSpinUp(rpm, shooter),
+      new PIDShoot(rpm, shooter),
       new FeedBallsUp(feeder).withTimeout(1),
       new StopShooter(shooter)
     );

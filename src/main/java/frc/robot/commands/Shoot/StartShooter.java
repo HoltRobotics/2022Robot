@@ -5,16 +5,16 @@
 package frc.robot.commands.Shoot;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.ShooterPID;
 
 public class StartShooter extends InstantCommand {
-  private final Shooter m_shooter;
+  private final ShooterPID m_shooter;
 
   /**
    * Command that only starts the shooter. Will NOT stop it after ending.
    * @param shooter Required Shooter Subsystem.
    */
-  public StartShooter(Shooter shooter) {
+  public StartShooter(ShooterPID shooter) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_shooter = shooter;
     addRequirements(m_shooter);
