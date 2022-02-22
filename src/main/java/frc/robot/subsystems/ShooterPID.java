@@ -40,6 +40,7 @@ public class ShooterPID extends PIDSubsystem {
     m_shooterMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
     
     m_rpm = m_tab.add("Shooter RPM", getRPM()).withPosition(4, 1).withSize(1, 1).withWidget(BuiltInWidgets.kTextView).getEntry();
+    m_tab.add("PID Controller", getController()).withPosition(4, 2).withSize(1, 2).withWidget(BuiltInWidgets.kPIDController);
   }
 
   @Override
