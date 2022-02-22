@@ -1,12 +1,5 @@
 {
   "HALProvider": {
-    "Other Devices": {
-      "Talon FX[9]": {
-        "header": {
-          "open": true
-        }
-      }
-    },
     "PWM Outputs": {
       "window": {
         "visible": true
