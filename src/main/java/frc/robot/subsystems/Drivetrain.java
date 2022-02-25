@@ -65,7 +65,7 @@ public class Drivetrain extends SubsystemBase {
 
     m_toggle = m_tab.add("Field Drive", toggleFieldDrive).withPosition(4, 0).getEntry();
     m_tab.add("Drivetrain", m_drive).withPosition(0, 0).withSize(4, 2);
-    m_tab.add("Gyro", m_gyro.getRoll()).withPosition(0, 2).withSize(2, 2).withWidget(BuiltInWidgets.kGyro);
+    m_tab.add("Gyro", m_gyro).withPosition(0, 2).withSize(2, 2).withWidget(BuiltInWidgets.kGyro);
     m_maxSpeed = m_tab.add("Max Speed", 1.0).withPosition(2, 2).withSize(2, 1).withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min", 0, "max", 1)).getEntry();
 
     m_maxSpeed.setDouble(DriveConstants.kDefaultSpeed);
