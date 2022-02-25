@@ -38,13 +38,15 @@ public final class Constants {
 
     public static final class ShooterConstants {
         public static final int kShooterMotor = 9;
-        public static final double kShooterMotorSpeed = 0.75;
-        //TODO: calculate theses for the robot
-        public static final double kS = 0.0;
+        public static final double kSlowShootRPM = 2000;
+        public static final double kMidShootRPM = 3000;
+        public static final double kFastShootRPM = 4000;
+        public static final double kS = 0.53707;
         public static final double kV = 0.0;
-        public static final double kP = 0.0;
+        public static final double kP = 0.008;
         public static final double kI = 0.0;
         public static final double kD = 0.0;
+        public static final double kPIDAdjust = 1.225;
     }
 
     public static final class ClimbConstants {

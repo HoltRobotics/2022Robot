@@ -4,52 +4,63 @@
 
 package frc.robot.subsystems;
 
-import java.util.Map;
-
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 import frc.robot.Constants.ShooterConstants;
 
-public class Shooter extends SubsystemBase {
-  
+public class Shooter extends PIDSubsystem {
+
   private final WPI_TalonFX m_shooterMotor = new WPI_TalonFX(ShooterConstants.kShooterMotor);
+
+  private static final SimpleMotorFeedforward m_feedforward = new SimpleMotorFeedforward(ShooterConstants.kS, ShooterConstants.kV);
 
   private final ShuffleboardTab m_tab = Shuffleboard.getTab("Main");
   private final NetworkTableEntry m_rpm;
-  private final NetworkTableEntry m_maxSpeed;
-
-  private double m_speed;
-
-  /**
-   * Shooter Subsystem
-   * @deprecated use ShooterPID
-   */
+  
+  /** Creates a new ShooterPID. */
   public Shooter() {
+    super(
+      // The PIDController used by the subsystem
+      new PIDController(ShooterConstants.kP, ShooterConstants.kI, ShooterConstants.kD)
+    );
     m_shooterMotor.setNeutralMode(NeutralMode.Brake);
 
     m_shooterMotor.setInverted(InvertType.InvertMotorOutput);
-
+    
     m_shooterMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
-
-    m_maxSpeed = m_tab.add("Shooter Speed", 1.0).withPosition(2, 3).withSize(2, 1).withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min", 0, "max", 1)).getEntry();
+    
     m_rpm = m_tab.add("Shooter RPM", getRPM()).withPosition(4, 1).withSize(1, 1).withWidget(BuiltInWidgets.kTextView).getEntry();
+    // m_tab.add("PID Controller", getController()).withPosition(4, 2).withSize(1, 2).withWidget(BuiltInWidgets.kPIDController);
+  }
 
-    m_maxSpeed.setDouble(ShooterConstants.kShooterMotorSpeed);
+  @Override
+  public void useOutput(double output, double setpoint) {
+    // Use the output here
+    runShooterVoltage(output + m_feedforward.calculate(setpoint));
+  }
+
+  @Override
+  public double getMeasurement() {
+    // Return the process variable measurement here
+    return getRPM();
   }
 
   /**
-   * Runs the shooter at the selected speed from the Shuffleboard Tab.
+   * Sets the targer RPMs of the Shooter.
+   * @param rpm The target RPM value.
    */
-  public void startShooter() {
-    m_shooterMotor.set(m_speed);
+  public void setRPM(double rpm) {
+    setSetpoint(rpm * ShooterConstants.kPIDAdjust);
   }
 
   /**
@@ -61,10 +72,10 @@ public class Shooter extends SubsystemBase {
   }
 
   /**
-   * Stops the shooter motor.
+   * Runs the shooter in reverse in order to take in a ball through the shooter.
    */
-  public void stopShooter() {
-    m_shooterMotor.stopMotor();
+  public void backShooter() {
+    m_shooterMotor.set(-0.15);
   }
 
   /**
@@ -87,6 +98,6 @@ public class Shooter extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     m_rpm.setNumber(getRPM());
-    m_speed = m_maxSpeed.getDouble(1.0);
+    super.periodic();
   }
 }

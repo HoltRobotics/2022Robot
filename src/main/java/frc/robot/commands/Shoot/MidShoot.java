@@ -5,25 +5,29 @@
 package frc.robot.commands.Shoot;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants.ShooterConstants;
 import frc.robot.subsystems.Shooter;
 
-public class PIDShoot extends CommandBase {
+public class MidShoot extends CommandBase {
   private final Shooter m_shooter;
-  private final double m_rpm;
 
-  public PIDShoot(double rpm, Shooter shooter) {
+  /** Creates a new SlowShoot. */
+  public MidShoot(Shooter shooter) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_rpm = rpm;
     m_shooter = shooter;
-    addRequirements(shooter);
+    addRequirements(m_shooter);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_shooter.setRPM(m_rpm);
+    m_shooter.setRPM(ShooterConstants.kMidShootRPM);
     m_shooter.enable();
   }
+
+  // Called every time the scheduler runs while the command is scheduled.
+  @Override
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override

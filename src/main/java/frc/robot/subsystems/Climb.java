@@ -19,18 +19,25 @@ public class Climb extends SubsystemBase {
    * Climb Subsystem
    */
   public Climb() {
-    m_arm.setInverted(false);
-    m_hooks.setInverted(false);
+    m_arm.setInverted(true);
+    m_hooks.setInverted(true);
 
     m_arm.setIdleMode(IdleMode.kBrake);
     m_hooks.setIdleMode(IdleMode.kBrake);
   }
 
   /**
-   * Raises and then lowers the climbing arms.
+   * Raises the climbing arms.
    */
   public void runArms() {
     m_arm.set(ClimbConstants.kArmMotorSpeed);
+  }
+
+  /**
+   * Lowers the climbing arms.
+   */
+  public void lowerArms() {
+    m_arm.set(-ClimbConstants.kArmMotorSpeed);
   }
 
   /**

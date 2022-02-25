@@ -44,10 +44,10 @@ public class Drivetrain extends SubsystemBase {
    * Drivetrain Subsystem
    */
   public Drivetrain() {
-    m_frontLeftMotor.setNeutralMode(NeutralMode.Brake);
-    m_rearLeftMotor.setNeutralMode(NeutralMode.Brake);
-    m_frontRightMotor.setNeutralMode(NeutralMode.Brake);
-    m_rearRightMotor.setNeutralMode(NeutralMode.Brake);
+    m_frontLeftMotor.setNeutralMode(NeutralMode.Coast);
+    m_rearLeftMotor.setNeutralMode(NeutralMode.Coast);
+    m_frontRightMotor.setNeutralMode(NeutralMode.Coast);
+    m_rearRightMotor.setNeutralMode(NeutralMode.Coast);
 
     m_frontLeftMotor.setInverted(InvertType.None);
     m_rearLeftMotor.setInverted(InvertType.None);
@@ -65,7 +65,7 @@ public class Drivetrain extends SubsystemBase {
 
     m_toggle = m_tab.add("Field Drive", toggleFieldDrive).withPosition(4, 0).getEntry();
     m_tab.add("Drivetrain", m_drive).withPosition(0, 0).withSize(4, 2);
-    m_tab.add("Gyro", m_gyro).withPosition(0, 2).withSize(2, 2).withWidget(BuiltInWidgets.kGyro);
+    m_tab.add("Gyro", m_gyro.getRoll()).withPosition(0, 2).withSize(2, 2).withWidget(BuiltInWidgets.kGyro);
     m_maxSpeed = m_tab.add("Max Speed", 1.0).withPosition(2, 2).withSize(2, 1).withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min", 0, "max", 1)).getEntry();
 
     m_maxSpeed.setDouble(DriveConstants.kDefaultSpeed);

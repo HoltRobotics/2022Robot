@@ -2,33 +2,35 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.Shoot;
+package frc.robot.commands.Climb;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Climb;
 
-public class PIDShoot extends CommandBase {
-  private final Shooter m_shooter;
-  private final double m_rpm;
-
-  public PIDShoot(double rpm, Shooter shooter) {
+public class LowerArms extends CommandBase {
+  private final Climb m_climb;
+  
+  /** Creates a new LowerArms. */
+  public LowerArms(Climb climb) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_rpm = rpm;
-    m_shooter = shooter;
-    addRequirements(shooter);
+    m_climb = climb;
+    addRequirements(m_climb);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    m_shooter.setRPM(m_rpm);
-    m_shooter.enable();
+  public void initialize() {}
+
+  // Called every time the scheduler runs while the command is scheduled.
+  @Override
+  public void execute() {
+    m_climb.lowerArms();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_shooter.disable();
+    m_climb.stopArms();
   }
 
   // Returns true when the command should end.

@@ -12,20 +12,25 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.OIConstants;
+import frc.robot.commands.Climb.LowerArms;
 import frc.robot.commands.Climb.RaiseArms;
-import frc.robot.commands.Combo.FeedAndShoot;
 import frc.robot.commands.Combo.FrontNFeed;
 import frc.robot.commands.Combo.SideNFeed;
 import frc.robot.commands.Drive.CartesianDrive;
 import frc.robot.commands.Drive.SlowDrive;
 import frc.robot.commands.Drive.ToggleFieldDrive;
+import frc.robot.commands.Feeder.FeedBallsDown;
 import frc.robot.commands.Feeder.FeedBallsUp;
-import frc.robot.commands.Shoot.PIDShoot;
+import frc.robot.commands.Shoot.BackwardsShooter;
+import frc.robot.commands.Shoot.FastShoot;
+import frc.robot.commands.Shoot.MidShoot;
+import frc.robot.commands.Shoot.SlowShoot;
+import frc.robot.commands.Shoot.StopShooter;
 import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.ShooterPID;
+import frc.robot.subsystems.Shooter;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -38,7 +43,7 @@ public class RobotContainer {
   public final Drivetrain m_drive = new Drivetrain();
   public final Intake m_intake = new Intake();
   public final Feeder m_feeder = new Feeder();
-  public final ShooterPID m_shoot = new ShooterPID();
+  public final Shooter m_shoot = new Shooter();
   public final Climb m_climb = new Climb();
 
   // Controllers
@@ -74,9 +79,15 @@ public class RobotContainer {
     new JoystickButton(m_operator, 1).whenHeld(new FrontNFeed(m_intake, m_feeder));
     new JoystickButton(m_operator, 2).whenHeld(new SideNFeed(m_intake, m_feeder));
     new JoystickButton(m_operator, 3).whenHeld(new FeedBallsUp(m_feeder));
-    new JoystickButton(m_operator, 4).whenPressed(new FeedAndShoot(4000, m_shoot, m_feeder));
-    new JoystickButton(m_operator, 5).whenPressed(new PIDShoot(4000, m_shoot));
-    new JoystickButton(m_operator, 6).whenHeld(new RaiseArms(m_climb));
+    new JoystickButton(m_operator, 4).whenHeld(new FeedBallsDown(m_feeder));
+    new JoystickButton(m_operator, 5).whenHeld(new BackwardsShooter(m_shoot));
+    new JoystickButton(m_operator, 6).whenHeld(new SlowShoot(m_shoot));
+    new JoystickButton(m_operator, 7).whenHeld(new MidShoot(m_shoot));
+    new JoystickButton(m_operator, 8).whenHeld(new FastShoot(m_shoot));
+    new JoystickButton(m_operator, 11).whenHeld(new RaiseArms(m_climb));
+    new JoystickButton(m_operator, 12).whenHeld(new LowerArms(m_climb));
+    new JoystickButton(m_operator, 21).whenPressed(new StopShooter(m_shoot));
+
   }
 
   /**

@@ -2,24 +2,22 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.Shoot;
+package frc.robot.commands.Feeder;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.ShooterPID;
+import frc.robot.subsystems.Feeder;
 
-public class BallGoBurrrrrr extends CommandBase {
-  private final ShooterPID m_shooter;
+public class FeedBallsDown extends CommandBase {
+  private final Feeder m_feeder;
 
   /**
-   * Command to run the shooter forwards.
-   * @param m_shoot Required Shootere Subsystem
-   * 
-   * @deprecated No longer needed. Use {@link PIDShoot} to set RPM and enable. Then {@link StopShooter} to disable.
+   * Command that runs both the front feeder and the belt feeder up.
+   * @param feeder Required Feeder Subsystem
    */
-  public BallGoBurrrrrr(ShooterPID shooter) {
+  public FeedBallsDown(Feeder feeder) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_shooter = shooter;
-    addRequirements(m_shooter);
+    m_feeder = feeder;
+    addRequirements(m_feeder);
   }
 
   // Called when the command is initially scheduled.
@@ -29,13 +27,13 @@ public class BallGoBurrrrrr extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_shooter.startShooter();
+    m_feeder.backFeeder();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_shooter.stopShooter();
+    m_feeder.stopFeeder();
   }
 
   // Returns true when the command should end.
