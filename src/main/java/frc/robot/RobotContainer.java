@@ -17,6 +17,7 @@ import frc.robot.commands.Climb.RaiseArms;
 import frc.robot.commands.Combo.FrontNFeed;
 import frc.robot.commands.Combo.SideNFeed;
 import frc.robot.commands.Drive.CartesianDrive;
+import frc.robot.commands.Drive.DriveForwardDistance;
 import frc.robot.commands.Drive.SlowDrive;
 import frc.robot.commands.Drive.ToggleFieldDrive;
 import frc.robot.commands.Feeder.FeedBallsDown;
@@ -97,6 +98,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return new WaitCommand(15);
+    return new DriveForwardDistance(1, m_drive);
   }
 }
