@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import java.util.Map;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
@@ -54,6 +55,11 @@ public class Drivetrain extends SubsystemBase {
     m_frontRightMotor.setInverted(InvertType.InvertMotorOutput);
     m_rearRightMotor.setInverted(InvertType.InvertMotorOutput);
 
+    m_frontLeftMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
+    m_rearLeftMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
+    m_frontRightMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
+    m_rearRightMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
+
     m_drive.setDeadband(0.1);
 
     m_orchestra.addInstrument(m_frontLeftMotor);
@@ -95,12 +101,58 @@ public class Drivetrain extends SubsystemBase {
   }
 
   /**
+   * Drive method to drive the robot using voltages.
+   * <p>Can only move forward and backwards.
+   * @param voltage The voltage for the motors.
+   */
+  public void driveVoltage(double voltage) {
+    m_frontLeftMotor.setVoltage(voltage);
+    m_rearLeftMotor.setVoltage(voltage);
+    m_frontRightMotor.setVoltage(voltage);
+    m_rearRightMotor.setVoltage(voltage);
+  }
+
+  /**
    * Configure the scaling factor for using drive method.
    * <p>Default value is 1.0.
    * @param maxSpeed Multiplied with the output percentage computed by the drive functions.
    */
   public void setMaxSpeed(double maxSpeed) {
     m_drive.setMaxOutput(maxSpeed);
+  }
+
+  /**
+   * Gets the average distance of the two right wheels.
+   * @return The distance in meters.
+   */
+  public double getRightDistance() {
+    return (m_frontRightMotor.getSelectedSensorPosition() + m_rearRightMotor.getSelectedSensorPosition()) / 2 * DriveConstants.kMetersPerTick;
+  }
+
+  /**
+   * Gets the average distance of the two left wheels.
+   * @return The distance in meters.
+   */
+  public double getLeftDistance() {
+    return (m_frontLeftMotor.getSelectedSensorPosition() + m_rearLeftMotor.getSelectedSensorPosition()) / 2 * DriveConstants.kMetersPerTick;
+  }
+
+  /**
+   * Gets the average distance of both sides of the robot.
+   * @return The distance in meters.
+   */
+  public double getAverageDistance() {
+    return (getRightDistance() + getLeftDistance()) / 2;
+  }
+
+  /**
+   * Resets all the encoders to zero.
+   */
+  public void resetEncoders() {
+    m_frontLeftMotor.setSelectedSensorPosition(0);
+    m_rearLeftMotor.setSelectedSensorPosition(0);
+    m_frontRightMotor.setSelectedSensorPosition(0);
+    m_rearRightMotor.setSelectedSensorPosition(0);
   }
 
   /**
