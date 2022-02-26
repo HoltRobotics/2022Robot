@@ -75,7 +75,7 @@ public class Shooter extends PIDSubsystem {
    * Runs the shooter in reverse in order to take in a ball through the shooter.
    */
   public void backShooter() {
-    m_shooterMotor.set(-0.15);
+    m_shooterMotor.set(-0.5);
   }
 
   /**

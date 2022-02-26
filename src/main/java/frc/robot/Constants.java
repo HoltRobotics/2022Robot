@@ -29,7 +29,7 @@ public final class Constants {
         public static final double kWheelDiameterMeters = Units.inchesToMeters(6);
         public static final double kWheelCircumferenceMeters = kWheelDiameterMeters * Math.PI;
         public static final double kEncoderCPR = 2048;
-        public static final double kGearRatio = 0; //TODO: Put in the right gear ratio
+        public static final double kGearRatio = 10.6; //TODO: Put in the right gear ratio
         public static final double kMetersPerTick = kWheelCircumferenceMeters / kEncoderCPR * kGearRatio;
     }
 
@@ -47,8 +47,8 @@ public final class Constants {
 
     public static final class ShooterConstants {
         public static final int kShooterMotor = 9;
-        public static final double kSlowShootRPM = 2000;
-        public static final double kMidShootRPM = 3000;
+        public static final double kSlowShootRPM = 3600;
+        public static final double kMidShootRPM = 3800;
         public static final double kFastShootRPM = 4000;
         public static final double kS = 0.53707;
         public static final double kV = 0.0;

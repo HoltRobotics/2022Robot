@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -51,6 +53,10 @@ public class RobotContainer {
   public final FlightStick m_flightDriver = new FlightStick(OIConstants.kFlightDriverController);
   public final Joystick m_operator = new Joystick(OIConstants.kOperatorController);
 
+  // Cameras
+  public final UsbCamera m_frontCamera = CameraServer.startAutomaticCapture(0);
+  // public final UsbCamera m_sideCamera = CameraServer.startAutomaticCapture(0);
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
@@ -62,6 +68,9 @@ public class RobotContainer {
       () -> m_xboxDriver.getRightX() + m_flightDriver.getZ(),
       m_drive)
     );
+
+    // m_frontCamera.setResolution(176, 144);
+    // m_sideCamera.setResolution(176, 144);
   }
 
   /**
@@ -75,6 +84,10 @@ public class RobotContainer {
     new JoystickButton(m_xboxDriver, Button.kB.value).whenHeld(new SlowDrive(m_drive));
     new JoystickButton(m_xboxDriver, Button.kLeftBumper.value).whenHeld(new FrontNFeed(m_intake, m_feeder));
     new JoystickButton(m_xboxDriver, Button.kRightBumper.value).whenHeld(new SideNFeed(m_intake, m_feeder));
+
+    new JoystickButton(m_flightDriver, FlightStick.Button.kLeftTopMiddle.value).whenHeld(new FrontNFeed(m_intake, m_feeder));
+    new JoystickButton(m_flightDriver, FlightStick.Button.kLeftTopRight.value).whenHeld(new SideNFeed(m_intake, m_feeder));
+    new JoystickButton(m_flightDriver, FlightStick.Button.kLeftTopLeft.value).whenHeld(new SlowDrive(m_drive));
 
     new JoystickButton(m_operator, 1).whenHeld(new FrontNFeed(m_intake, m_feeder));
     new JoystickButton(m_operator, 2).whenHeld(new SideNFeed(m_intake, m_feeder));
