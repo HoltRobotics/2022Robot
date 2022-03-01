@@ -29,8 +29,8 @@ public final class Constants {
         public static final double kWheelDiameterMeters = Units.inchesToMeters(6);
         public static final double kWheelCircumferenceMeters = kWheelDiameterMeters * Math.PI;
         public static final double kEncoderCPR = 2048;
-        public static final double kGearRatio = 10.6; //TODO: Put in the right gear ratio
-        public static final double kMetersPerTick = kWheelCircumferenceMeters / kEncoderCPR * kGearRatio;
+        public static final double kGearRatio = 10.71; //TODO: Put in the right gear ratio
+        public static final double kMetersPerTick = kEncoderCPR / kGearRatio * kWheelCircumferenceMeters;
     }
 
     public static final class IntakeConstants {

@@ -23,6 +23,6 @@ public class StartShooter extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_shooter.disable();
+    m_shooter.enable();
   }
 }
