@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.Climb.LowerArms;
@@ -18,6 +19,7 @@ import frc.robot.commands.Climb.RaiseArms;
 import frc.robot.commands.Combo.FrontNFeed;
 import frc.robot.commands.Combo.SideNFeed;
 import frc.robot.commands.Drive.CartesianDrive;
+import frc.robot.commands.Drive.DriveBackDistance;
 import frc.robot.commands.Drive.DriveForwardDistance;
 import frc.robot.commands.Drive.SlowDrive;
 import frc.robot.commands.Drive.ToggleFieldDrive;
@@ -85,6 +87,8 @@ public class RobotContainer {
     new JoystickButton(m_xboxDriver, Button.kLeftBumper.value).whenHeld(new FrontNFeed(m_intake, m_feeder));
     new JoystickButton(m_xboxDriver, Button.kRightBumper.value).whenHeld(new SideNFeed(m_intake, m_feeder));
 
+
+    new JoystickButton(m_flightDriver, FlightStick.Button.kTrigger.value).whenPressed(new ToggleFieldDrive(m_drive));
     new JoystickButton(m_flightDriver, FlightStick.Button.kLeftTopMiddle.value).whenHeld(new FrontNFeed(m_intake, m_feeder));
     new JoystickButton(m_flightDriver, FlightStick.Button.kLeftTopRight.value).whenHeld(new SideNFeed(m_intake, m_feeder));
     new JoystickButton(m_flightDriver, FlightStick.Button.kLeftTopLeft.value).whenHeld(new SlowDrive(m_drive));
@@ -110,6 +114,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return new DriveForwardDistance(1, m_drive);
+    return new SequentialCommandGroup(new DriveForwardDistance(1, m_drive), new DriveBackDistance(1, m_drive));
   }
 }

@@ -45,10 +45,15 @@ public class Drivetrain extends SubsystemBase {
    * Drivetrain Subsystem
    */
   public Drivetrain() {
-    m_frontLeftMotor.setNeutralMode(NeutralMode.Coast);
-    m_rearLeftMotor.setNeutralMode(NeutralMode.Coast);
-    m_frontRightMotor.setNeutralMode(NeutralMode.Coast);
-    m_rearRightMotor.setNeutralMode(NeutralMode.Coast);
+    // m_frontLeftMotor.setNeutralMode(NeutralMode.Coast);
+    // m_rearLeftMotor.setNeutralMode(NeutralMode.Coast);
+    // m_frontRightMotor.setNeutralMode(NeutralMode.Coast);
+    // m_rearRightMotor.setNeutralMode(NeutralMode.Coast);
+
+    m_frontLeftMotor.setNeutralMode(NeutralMode.Brake);
+    m_rearLeftMotor.setNeutralMode(NeutralMode.Brake);
+    m_frontRightMotor.setNeutralMode(NeutralMode.Brake);
+    m_rearRightMotor.setNeutralMode(NeutralMode.Brake);
 
     m_frontLeftMotor.setInverted(InvertType.None);
     m_rearLeftMotor.setInverted(InvertType.None);
@@ -126,7 +131,8 @@ public class Drivetrain extends SubsystemBase {
    * @return The distance in meters.
    */
   public double getRightDistance() {
-    return (m_frontRightMotor.getSelectedSensorPosition() + m_rearRightMotor.getSelectedSensorPosition()) / 2 * DriveConstants.kMetersPerTick;
+    // return (m_frontRightMotor.getSelectedSensorPosition() + m_rearRightMotor.getSelectedSensorPosition()) / 2 * DriveConstants.kMetersPerTick;
+    return ((-m_frontRightMotor.getSelectedSensorPosition() / DriveConstants.kEncoderCPR / DriveConstants.kGearRatio) * DriveConstants.kWheelCircumferenceMeters);
   }
 
   /**
@@ -134,7 +140,9 @@ public class Drivetrain extends SubsystemBase {
    * @return The distance in meters.
    */
   public double getLeftDistance() {
-    return (m_frontLeftMotor.getSelectedSensorPosition() + m_rearLeftMotor.getSelectedSensorPosition()) / 2 * DriveConstants.kMetersPerTick;
+    // return (m_frontLeftMotor.getSelectedSensorPosition() + m_rearLeftMotor.getSelectedSensorPosition()) / 2 * DriveConstants.kMetersPerTick;
+    return ((-m_frontLeftMotor.getSelectedSensorPosition() / DriveConstants.kEncoderCPR / DriveConstants.kGearRatio) * DriveConstants.kWheelCircumferenceMeters);
+
   }
 
   /**

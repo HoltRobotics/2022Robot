@@ -22,15 +22,15 @@ public final class Constants {
         public static final int kRearRightMotor = 4;
 
         public static final double kDefaultSpeed = 1.0;
-        public static final double kAutonSpeed = 0.5;
+        public static final double kAutonSpeed = 0.25;
         public static final double kSlowDriveSpeed = 0.5;
         public static final double kTurningSlowDown = 0.75;
 
         public static final double kWheelDiameterMeters = Units.inchesToMeters(6);
         public static final double kWheelCircumferenceMeters = kWheelDiameterMeters * Math.PI;
         public static final double kEncoderCPR = 2048;
-        public static final double kGearRatio = 10.71; //TODO: Put in the right gear ratio
-        public static final double kMetersPerTick = kEncoderCPR / kGearRatio * kWheelCircumferenceMeters;
+        public static final double kGearRatio = 10.71;
+        public static final double kMetersPerTick = kEncoderCPR * kGearRatio * kWheelCircumferenceMeters;
     }
 
     public static final class IntakeConstants {
