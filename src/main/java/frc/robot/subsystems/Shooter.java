@@ -55,6 +55,14 @@ public class Shooter extends PIDSubsystem {
     return getRPM();
   }
 
+  public boolean isAtSetPoint() {
+    if(getRPM() >= getSetpoint()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   /**
    * Sets the targer RPMs of the Shooter.
    * @param rpm The target RPM value.

@@ -11,10 +11,9 @@ import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.music.Orchestra;
-import com.kauailabs.navx.frc.AHRS;
+import com.ctre.phoenix.sensors.Pigeon2;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -32,7 +31,7 @@ public class Drivetrain extends SubsystemBase {
 
   private final Orchestra m_orchestra = new Orchestra();
 
-  private final AHRS m_gyro = new AHRS(SPI.Port.kMXP);
+  private final Pigeon2 m_gyro = new Pigeon2(DriveConstants.kPigeonID);
 
   private final ShuffleboardTab m_tab = Shuffleboard.getTab("Main");
   private final NetworkTableEntry m_toggle;
@@ -45,15 +44,15 @@ public class Drivetrain extends SubsystemBase {
    * Drivetrain Subsystem
    */
   public Drivetrain() {
-    // m_frontLeftMotor.setNeutralMode(NeutralMode.Coast);
-    // m_rearLeftMotor.setNeutralMode(NeutralMode.Coast);
-    // m_frontRightMotor.setNeutralMode(NeutralMode.Coast);
-    // m_rearRightMotor.setNeutralMode(NeutralMode.Coast);
+    m_frontLeftMotor.setNeutralMode(NeutralMode.Coast);
+    m_rearLeftMotor.setNeutralMode(NeutralMode.Coast);
+    m_frontRightMotor.setNeutralMode(NeutralMode.Coast);
+    m_rearRightMotor.setNeutralMode(NeutralMode.Coast);
 
-    m_frontLeftMotor.setNeutralMode(NeutralMode.Brake);
-    m_rearLeftMotor.setNeutralMode(NeutralMode.Brake);
-    m_frontRightMotor.setNeutralMode(NeutralMode.Brake);
-    m_rearRightMotor.setNeutralMode(NeutralMode.Brake);
+    // m_frontLeftMotor.setNeutralMode(NeutralMode.Brake);
+    // m_rearLeftMotor.setNeutralMode(NeutralMode.Brake);
+    // m_frontRightMotor.setNeutralMode(NeutralMode.Brake);
+    // m_rearRightMotor.setNeutralMode(NeutralMode.Brake);
 
     m_frontLeftMotor.setInverted(InvertType.None);
     m_rearLeftMotor.setInverted(InvertType.None);
@@ -76,7 +75,7 @@ public class Drivetrain extends SubsystemBase {
 
     m_toggle = m_tab.add("Field Drive", toggleFieldDrive).withPosition(4, 0).getEntry();
     m_tab.add("Drivetrain", m_drive).withPosition(0, 0).withSize(4, 2);
-    m_tab.add("Gyro", m_gyro).withPosition(0, 2).withSize(2, 2).withWidget(BuiltInWidgets.kGyro);
+    // m_tab.add("Gyro", m_gyro).withPosition(0, 2).withSize(2, 2).withWidget(BuiltInWidgets.kGyro);
     m_maxSpeed = m_tab.add("Max Speed", 1.0).withPosition(2, 2).withSize(2, 1).withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min", 0, "max", 1)).getEntry();
 
     m_maxSpeed.setDouble(DriveConstants.kDefaultSpeed);
@@ -105,6 +104,13 @@ public class Drivetrain extends SubsystemBase {
     m_drive.driveCartesian(ySpeed, xSpeed, zRotation * DriveConstants.kTurningSlowDown, gyroAngle);
   }
 
+  public void setNeutralMode(NeutralMode mode) {
+    m_frontLeftMotor.setNeutralMode(mode);
+    m_rearLeftMotor.setNeutralMode(mode);
+    m_frontRightMotor.setNeutralMode(mode);
+    m_rearRightMotor.setNeutralMode(mode);
+  }
+
   /**
    * Drive method to drive the robot using voltages.
    * <p>Can only move forward and backwards.
@@ -131,7 +137,6 @@ public class Drivetrain extends SubsystemBase {
    * @return The distance in meters.
    */
   public double getRightDistance() {
-    // return (m_frontRightMotor.getSelectedSensorPosition() + m_rearRightMotor.getSelectedSensorPosition()) / 2 * DriveConstants.kMetersPerTick;
     return ((-m_frontRightMotor.getSelectedSensorPosition() / DriveConstants.kEncoderCPR / DriveConstants.kGearRatio) * DriveConstants.kWheelCircumferenceMeters);
   }
 
@@ -140,7 +145,6 @@ public class Drivetrain extends SubsystemBase {
    * @return The distance in meters.
    */
   public double getLeftDistance() {
-    // return (m_frontLeftMotor.getSelectedSensorPosition() + m_rearLeftMotor.getSelectedSensorPosition()) / 2 * DriveConstants.kMetersPerTick;
     return ((-m_frontLeftMotor.getSelectedSensorPosition() / DriveConstants.kEncoderCPR / DriveConstants.kGearRatio) * DriveConstants.kWheelCircumferenceMeters);
 
   }
@@ -168,7 +172,7 @@ public class Drivetrain extends SubsystemBase {
    * @return The current angle value in degrees (-180 to 180).
    */
   public double getGyroAngle() {
-    return m_gyro.getRoll();
+    return m_gyro.getYaw();
   }
 
   /**
@@ -214,10 +218,10 @@ public class Drivetrain extends SubsystemBase {
   }
 
   /**
-   * Reset the Yaw gyro.
+   * Resets the gyro.
    */
   public void resetGyro() {
-    m_gyro.reset();
+    m_gyro.setYaw(0);
   }
 
   /**

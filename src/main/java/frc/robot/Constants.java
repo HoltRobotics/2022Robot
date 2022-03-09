@@ -26,6 +26,8 @@ public final class Constants {
         public static final double kSlowDriveSpeed = 0.5;
         public static final double kTurningSlowDown = 0.75;
 
+        public static final int kPigeonID = 12;
+
         public static final double kWheelDiameterMeters = Units.inchesToMeters(6);
         public static final double kWheelCircumferenceMeters = kWheelDiameterMeters * Math.PI;
         public static final double kEncoderCPR = 2048;
@@ -50,6 +52,7 @@ public final class Constants {
         public static final double kSlowShootRPM = 3600;
         public static final double kMidShootRPM = 3800;
         public static final double kFastShootRPM = 4000;
+        public static final double kLowerShootRPM = 2000;
         public static final double kS = 0.53707;
         public static final double kV = 0.0;
         public static final double kP = 0.008;

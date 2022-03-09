@@ -4,29 +4,26 @@
 
 package frc.robot;
 
-import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.OIConstants;
+import frc.robot.commands.Auton.ShootThenDrive;
 import frc.robot.commands.Climb.LowerArms;
 import frc.robot.commands.Climb.RaiseArms;
 import frc.robot.commands.Combo.FrontNFeed;
 import frc.robot.commands.Combo.SideNFeed;
 import frc.robot.commands.Drive.CartesianDrive;
-import frc.robot.commands.Drive.DriveBackDistance;
-import frc.robot.commands.Drive.DriveForwardDistance;
 import frc.robot.commands.Drive.SlowDrive;
 import frc.robot.commands.Drive.ToggleFieldDrive;
 import frc.robot.commands.Feeder.FeedBallsDown;
 import frc.robot.commands.Feeder.FeedBallsUp;
 import frc.robot.commands.Shoot.BackwardsShooter;
 import frc.robot.commands.Shoot.FastShoot;
+import frc.robot.commands.Shoot.LowerHubShoot;
 import frc.robot.commands.Shoot.MidShoot;
 import frc.robot.commands.Shoot.SlowShoot;
 import frc.robot.commands.Shoot.StopShooter;
@@ -55,10 +52,6 @@ public class RobotContainer {
   public final FlightStick m_flightDriver = new FlightStick(OIConstants.kFlightDriverController);
   public final Joystick m_operator = new Joystick(OIConstants.kOperatorController);
 
-  // Cameras
-  public final UsbCamera m_frontCamera = CameraServer.startAutomaticCapture(0);
-  // public final UsbCamera m_sideCamera = CameraServer.startAutomaticCapture(0);
-
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
@@ -70,9 +63,6 @@ public class RobotContainer {
       () -> m_xboxDriver.getRightX() + m_flightDriver.getZ(),
       m_drive)
     );
-
-    // m_frontCamera.setResolution(176, 144);
-    // m_sideCamera.setResolution(176, 144);
   }
 
   /**
@@ -101,6 +91,7 @@ public class RobotContainer {
     new JoystickButton(m_operator, 6).whenHeld(new SlowShoot(m_shoot));
     new JoystickButton(m_operator, 7).whenHeld(new MidShoot(m_shoot));
     new JoystickButton(m_operator, 8).whenHeld(new FastShoot(m_shoot));
+    new JoystickButton(m_operator, 9).whenHeld(new LowerHubShoot(m_shoot));
     new JoystickButton(m_operator, 11).whenHeld(new RaiseArms(m_climb));
     new JoystickButton(m_operator, 12).whenHeld(new LowerArms(m_climb));
     new JoystickButton(m_operator, 21).whenPressed(new StopShooter(m_shoot));
@@ -113,7 +104,6 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    return new SequentialCommandGroup(new DriveForwardDistance(1, m_drive), new DriveBackDistance(1, m_drive));
+    return new ShootThenDrive(m_shoot, m_drive, m_feeder);
   }
 }
