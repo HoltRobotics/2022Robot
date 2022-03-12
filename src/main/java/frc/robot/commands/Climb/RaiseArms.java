@@ -39,6 +39,7 @@ public class RaiseArms extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    // TODO: set the right limits
     // if(m_climb.getArmPosition() >= ClimbConstants.kArmEncoderMaxValue) {
     //   return true;
     // } else {

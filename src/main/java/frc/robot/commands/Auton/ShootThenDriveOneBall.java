@@ -9,7 +9,6 @@ import frc.robot.Constants.ShooterConstants;
 import frc.robot.commands.Drive.DriveBackDistance;
 import frc.robot.commands.Drive.SetBrakeMode;
 import frc.robot.commands.Drive.SetCoastMode;
-import frc.robot.commands.Drive.StrafeRightDistance;
 import frc.robot.commands.Feeder.FeedBallsUp;
 import frc.robot.commands.Shoot.SetShooterSetpoint;
 import frc.robot.commands.Shoot.StartShooter;

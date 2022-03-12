@@ -36,6 +36,7 @@ public class LowerArms extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    // TODO: set the right limits
     // if(m_climb.getArmPosition() <= 0) {
     //   return true;
     // } else {
