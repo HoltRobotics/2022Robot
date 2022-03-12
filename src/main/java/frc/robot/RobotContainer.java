@@ -8,10 +8,15 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.OIConstants;
-import frc.robot.commands.Auton.ShootThenDrive;
+import frc.robot.commands.Auton.ShootThenDriveOneBall;
+import frc.robot.commands.Auton.TwoBallAuto;
 import frc.robot.commands.Climb.LeanBack;
 import frc.robot.commands.Climb.LeanForward;
 import frc.robot.commands.Climb.LowerArms;
@@ -58,6 +63,9 @@ public class RobotContainer {
   public final FlightStick m_flightDriver = new FlightStick(OIConstants.kFlightDriverController);
   public final Joystick m_operator = new Joystick(OIConstants.kOperatorController);
 
+  public final ShuffleboardTab m_tab = Shuffleboard.getTab("Main");
+  public final SendableChooser<Command> m_auto = new SendableChooser<>();
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
@@ -69,6 +77,10 @@ public class RobotContainer {
       () -> m_xboxDriver.getRightX() + m_flightDriver.getZ(),
       m_drive)
     );
+
+    m_tab.add("Auton List", m_auto).withPosition(0, 2).withSize(2, 1).withWidget(BuiltInWidgets.kComboBoxChooser);
+    m_auto.setDefaultOption("One Ball", new ShootThenDriveOneBall(m_shoot, m_drive, m_feeder));
+    m_auto.addOption("Two Ball", new TwoBallAuto(m_drive, m_shoot, m_feeder, m_intake));
   }
 
   /**
@@ -114,6 +126,6 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return new ShootThenDrive(m_shoot, m_drive, m_feeder);
+    return m_auto.getSelected();
   }
 }
