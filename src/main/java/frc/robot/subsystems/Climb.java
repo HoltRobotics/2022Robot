@@ -5,15 +5,26 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ClimbConstants;
 
 public class Climb extends SubsystemBase {
   private final CANSparkMax m_arm = new CANSparkMax(ClimbConstants.kArmMotor, MotorType.kBrushless);
   private final CANSparkMax m_hooks = new CANSparkMax(ClimbConstants.kHookMotor, MotorType.kBrushless);
+
+  private final RelativeEncoder m_armEncoder = m_arm.getEncoder();
+  private final RelativeEncoder m_hookEncoder = m_hooks.getEncoder();
+
+  private final ShuffleboardTab m_tab = Shuffleboard.getTab("Main");
+  private final NetworkTableEntry m_armLocation;
+  private final NetworkTableEntry m_hookLocation;
 
   /**
    * Climb Subsystem
@@ -24,6 +35,9 @@ public class Climb extends SubsystemBase {
 
     m_arm.setIdleMode(IdleMode.kBrake);
     m_hooks.setIdleMode(IdleMode.kBrake);
+
+    m_armLocation = m_tab.add("Arm Location", getArmPosition()).getEntry();
+    m_hookLocation = m_tab.add("Hook Location", getHookPosition()).getEntry();
   }
 
   /**
@@ -41,10 +55,25 @@ public class Climb extends SubsystemBase {
   }
 
   /**
-   * Slides the hooks.
+   * Slides the hooks back.
    */
-  public void slideHooks() {
+  public void slideHooksBack() {
     m_hooks.set(ClimbConstants.kHookMotorSpeed);
+  }
+
+  /**
+   * Slides the hooks forward.
+   */
+  public void slideHooksForward() {
+    m_hooks.set(-ClimbConstants.kHookMotorSpeed);
+  }
+
+  public double getHookPosition() {
+    return -m_hookEncoder.getPosition();
+  }
+
+  public double getArmPosition() {
+    return m_armEncoder.getPosition();
   }
 
   /**
@@ -64,5 +93,7 @@ public class Climb extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    m_armLocation.setNumber(getArmPosition());
+    m_hookLocation.setNumber(getHookPosition());
   }
 }

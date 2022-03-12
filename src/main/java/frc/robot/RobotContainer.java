@@ -12,6 +12,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.Auton.ShootThenDrive;
+import frc.robot.commands.Climb.LeanBack;
+import frc.robot.commands.Climb.LeanForward;
 import frc.robot.commands.Climb.LowerArms;
 import frc.robot.commands.Climb.RaiseArms;
 import frc.robot.commands.Combo.FrontNFeed;
@@ -21,6 +23,8 @@ import frc.robot.commands.Drive.SlowDrive;
 import frc.robot.commands.Drive.ToggleFieldDrive;
 import frc.robot.commands.Feeder.FeedBallsDown;
 import frc.robot.commands.Feeder.FeedBallsUp;
+import frc.robot.commands.Limelight.LEDOff;
+import frc.robot.commands.Limelight.LEDOn;
 import frc.robot.commands.Shoot.BackwardsShooter;
 import frc.robot.commands.Shoot.FastShoot;
 import frc.robot.commands.Shoot.LowerHubShoot;
@@ -31,6 +35,7 @@ import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Shooter;
 
 /**
@@ -46,6 +51,7 @@ public class RobotContainer {
   public final Feeder m_feeder = new Feeder();
   public final Shooter m_shoot = new Shooter();
   public final Climb m_climb = new Climb();
+  public final Limelight m_light = new Limelight();
 
   // Controllers
   public final XboxController m_xboxDriver = new XboxController(OIConstants.kXboxDriverController);
@@ -94,7 +100,11 @@ public class RobotContainer {
     new JoystickButton(m_operator, 9).whenHeld(new LowerHubShoot(m_shoot));
     new JoystickButton(m_operator, 11).whenHeld(new RaiseArms(m_climb));
     new JoystickButton(m_operator, 12).whenHeld(new LowerArms(m_climb));
+    new JoystickButton(m_operator, 13).whenHeld(new LeanBack(m_climb));
+    new JoystickButton(m_operator, 15).whenHeld(new LeanForward(m_climb));
     new JoystickButton(m_operator, 21).whenPressed(new StopShooter(m_shoot));
+    new JoystickButton(m_operator, 22).whenPressed(new LEDOn(m_light));
+    new JoystickButton(m_operator, 23).whenPressed(new LEDOff(m_light));
 
   }
 

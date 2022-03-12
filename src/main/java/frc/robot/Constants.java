@@ -66,6 +66,10 @@ public final class Constants {
         public static final int kHookMotor = 11;
         public static final double kArmMotorSpeed = 0.5;
         public static final double kHookMotorSpeed = 1.0;
+        public static final double kArmGearRatio = 48;
+        public static final double kHookGearRatio = 36;
+        public static final double kArmEncoderMaxValue = 290;
+        public static final double kHookEncoderMaxValue = 380;
     }
 
     public static final class OIConstants {

@@ -22,6 +22,7 @@ public class Limelight extends SubsystemBase {
 
   /** Creates a new Limelight. */
   public Limelight() {
+    logToShuffleboard();
   }
 
   public void logToShuffleboard() {
@@ -32,6 +33,12 @@ public class Limelight extends SubsystemBase {
     m_tab.add("Limelight Target", target);
     m_tab.add("Limelight X", x);
     m_tab.add("Limelight Y", y);
+  }
+
+  public void updateShuffleBoard() {
+    tv.setBoolean(tv.getFlags() == 1);
+    tx.setNumber(tx.getDouble(0.0));
+    ty.setNumber(ty.getDouble(0.0));
   }
 
   /**
@@ -49,6 +56,6 @@ public class Limelight extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    logToShuffleboard();
+    updateShuffleBoard();
   }
 }

@@ -5,6 +5,7 @@
 package frc.robot.commands.Climb;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants.ClimbConstants;
 import frc.robot.subsystems.Climb;
 
 public class RaiseArms extends CommandBase {
@@ -17,7 +18,7 @@ public class RaiseArms extends CommandBase {
   public RaiseArms(Climb climb) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_climb = climb;
-    addRequirements(m_climb);
+    // addRequirements(m_climb);
   }
 
   // Called when the command is initially scheduled.
@@ -39,6 +40,11 @@ public class RaiseArms extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    // if(m_climb.getArmPosition() >= ClimbConstants.kArmEncoderMaxValue) {
+    //   return true;
+    // } else {
+    //   return false;
+    // }
     return false;
   }
 }
