@@ -15,8 +15,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.OIConstants;
-import frc.robot.commands.Auton.ShootThenDriveOneBall;
-import frc.robot.commands.Auton.TwoBallAuto;
+import frc.robot.commands.Auton.DriveThenShootOneBall;
+import frc.robot.commands.Auton.DriveThenShootTwoBall;
+import frc.robot.commands.Auton.ShootThenStrafeTwoBall;
 import frc.robot.commands.Climb.LeanBack;
 import frc.robot.commands.Climb.LeanForward;
 import frc.robot.commands.Climb.LowerArms;
@@ -54,7 +55,7 @@ public class RobotContainer {
   public final Drivetrain m_drive = new Drivetrain();
   public final Intake m_intake = new Intake();
   public final Feeder m_feeder = new Feeder();
-  public final Shooter m_shoot = new Shooter();
+  public final Shooter m_shooter = new Shooter();
   public final Climb m_climb = new Climb();
   public final Limelight m_light = new Limelight();
 
@@ -79,8 +80,9 @@ public class RobotContainer {
     );
 
     m_tab.add("Auton List", m_auto).withPosition(0, 2).withSize(2, 1).withWidget(BuiltInWidgets.kComboBoxChooser);
-    m_auto.setDefaultOption("One Ball", new ShootThenDriveOneBall(m_shoot, m_drive, m_feeder));
-    m_auto.addOption("Two Ball", new TwoBallAuto(m_drive, m_shoot, m_feeder, m_intake));
+    m_auto.setDefaultOption("One Ball", new DriveThenShootOneBall(m_shooter, m_drive, m_feeder));
+    m_auto.addOption("Two Ball but bad", new ShootThenStrafeTwoBall(m_drive, m_shooter, m_feeder, m_intake));
+    m_auto.addOption("Two Ball but good", new DriveThenShootTwoBall(m_drive, m_intake, m_feeder, m_shooter, m_light));
   }
 
   /**
@@ -105,16 +107,16 @@ public class RobotContainer {
     new JoystickButton(m_operator, 2).whenHeld(new SideNFeed(m_intake, m_feeder));
     new JoystickButton(m_operator, 3).whenHeld(new FeedBallsUp(m_feeder));
     new JoystickButton(m_operator, 4).whenHeld(new FeedBallsDown(m_feeder));
-    new JoystickButton(m_operator, 5).whenHeld(new BackwardsShooter(m_shoot));
-    new JoystickButton(m_operator, 6).whenHeld(new SlowShoot(m_shoot));
-    new JoystickButton(m_operator, 7).whenHeld(new MidShoot(m_shoot));
-    new JoystickButton(m_operator, 8).whenHeld(new FastShoot(m_shoot));
-    new JoystickButton(m_operator, 9).whenHeld(new LowerHubShoot(m_shoot));
+    new JoystickButton(m_operator, 5).whenHeld(new BackwardsShooter(m_shooter));
+    new JoystickButton(m_operator, 6).whenHeld(new SlowShoot(m_shooter));
+    new JoystickButton(m_operator, 7).whenHeld(new MidShoot(m_shooter));
+    new JoystickButton(m_operator, 8).whenHeld(new FastShoot(m_shooter));
+    new JoystickButton(m_operator, 9).whenHeld(new LowerHubShoot(m_shooter));
     new JoystickButton(m_operator, 11).whenHeld(new RaiseArms(m_climb));
     new JoystickButton(m_operator, 12).whenHeld(new LowerArms(m_climb));
     new JoystickButton(m_operator, 13).whenHeld(new LeanBack(m_climb));
     new JoystickButton(m_operator, 15).whenHeld(new LeanForward(m_climb));
-    new JoystickButton(m_operator, 21).whenPressed(new StopShooter(m_shoot));
+    new JoystickButton(m_operator, 21).whenPressed(new StopShooter(m_shooter));
     new JoystickButton(m_operator, 22).whenPressed(new LEDOn(m_light));
     new JoystickButton(m_operator, 23).whenPressed(new LEDOff(m_light));
 

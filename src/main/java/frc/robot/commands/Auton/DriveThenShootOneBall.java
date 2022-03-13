@@ -17,12 +17,12 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Shooter;
 
-public class ShootThenDriveOneBall extends SequentialCommandGroup {
+public class DriveThenShootOneBall extends SequentialCommandGroup {
   // private final Shooter m_shooter;
   // private final Drivetrain m_drive;
 
   /** Creates a new ShootThenDrive. */
-  public ShootThenDriveOneBall(Shooter shooter, Drivetrain drive, Feeder feeder) {
+  public DriveThenShootOneBall(Shooter shooter, Drivetrain drive, Feeder feeder) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(

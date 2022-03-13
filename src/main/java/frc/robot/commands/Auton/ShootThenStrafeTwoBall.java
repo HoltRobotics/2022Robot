@@ -23,9 +23,9 @@ import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Intake;
 
-public class TwoBallAuto extends SequentialCommandGroup {
+public class ShootThenStrafeTwoBall extends SequentialCommandGroup {
   /** Creates a new TwoBallAuto. */
-  public TwoBallAuto(Drivetrain drive, Shooter shooter, Feeder feeder, Intake intake) {
+  public ShootThenStrafeTwoBall(Drivetrain drive, Shooter shooter, Feeder feeder, Intake intake) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
