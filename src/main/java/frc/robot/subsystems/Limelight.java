@@ -27,9 +27,9 @@ public class Limelight extends SubsystemBase {
 
   /** Creates a new Limelight. */
   public Limelight() {
-    m_tv = m_tab.add("Has Target", tv).withPosition(5, 0).withSize(1, 1).withWidget(BuiltInWidgets.kBooleanBox).getEntry();
-    m_tx = m_tab.add("Horizontal Offset", tx).withPosition(5, 1).withSize(1, 1).withWidget(BuiltInWidgets.kTextView).getEntry();
-    m_ty = m_tab.add("Vertical Offset", ty).withPosition(5, 2).withSize(1, 1).withWidget(BuiltInWidgets.kTextView).getEntry();
+    m_tv = m_tab.add("Has Target", false).withPosition(5, 0).withSize(1, 1).withWidget(BuiltInWidgets.kBooleanBox).getEntry();
+    m_tx = m_tab.add("Horizontal Offset", tx.getDouble(0)).withPosition(5, 1).withSize(1, 1).withWidget(BuiltInWidgets.kTextView).getEntry();
+    m_ty = m_tab.add("Vertical Offset", ty.getDouble(0)).withPosition(5, 2).withSize(1, 1).withWidget(BuiltInWidgets.kTextView).getEntry();
   }
 
   /**
@@ -59,7 +59,7 @@ public class Limelight extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    m_tv.setBoolean(tv.getFlags() == 1);
+    m_tv.setBoolean(tv.getDouble(0) == 1);
     m_tx.setDouble(tx.getDouble(0.0));
     m_ty.setDouble(ty.getDouble(0.0));
   }

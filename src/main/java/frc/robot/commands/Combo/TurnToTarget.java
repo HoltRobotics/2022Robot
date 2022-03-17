@@ -14,8 +14,7 @@ public class TurnToTarget extends PIDCommand {
   private final Drivetrain m_drive;
   private final Limelight m_light;
 
-  // TODO: tune and set feedforward and pid
-  private final static SimpleMotorFeedforward m_feedforward = new SimpleMotorFeedforward(0, 0);
+  private final static SimpleMotorFeedforward m_feedforward = new SimpleMotorFeedforward(0.65894, 0.059927);
 
   /** Creates a new TurnToTarget. */
   public TurnToTarget(Drivetrain drive, Limelight light) {

@@ -7,7 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.XboxController.Button;
+// import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
@@ -18,10 +18,13 @@ import frc.robot.Constants.OIConstants;
 import frc.robot.commands.Auton.DriveThenShootOneBall;
 import frc.robot.commands.Auton.DriveThenShootTwoBall;
 import frc.robot.commands.Auton.ShootThenStrafeTwoBall;
+import frc.robot.commands.Auton.TwoBallNotLight;
 import frc.robot.commands.Climb.LeanBack;
 import frc.robot.commands.Climb.LeanForward;
 import frc.robot.commands.Climb.LowerArms;
 import frc.robot.commands.Climb.RaiseArms;
+import frc.robot.commands.Climb.ResetArmEncoders;
+import frc.robot.commands.Climb.ResetHookEncoders;
 import frc.robot.commands.Combo.FrontNFeed;
 import frc.robot.commands.Combo.SideNFeed;
 import frc.robot.commands.Drive.CartesianDrive;
@@ -60,7 +63,7 @@ public class RobotContainer {
   public final Limelight m_light = new Limelight();
 
   // Controllers
-  public final XboxController m_xboxDriver = new XboxController(OIConstants.kXboxDriverController);
+  // public final XboxController m_xboxDriver = new XboxController(OIConstants.kXboxDriverController);
   public final FlightStick m_flightDriver = new FlightStick(OIConstants.kFlightDriverController);
   public final Joystick m_operator = new Joystick(OIConstants.kOperatorController);
 
@@ -72,10 +75,17 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
 
+    // m_drive.setDefaultCommand(new CartesianDrive(
+    //   () -> -m_xboxDriver.getLeftY() + -m_flightDriver.getY(),
+    //   () -> m_xboxDriver.getLeftX() + m_flightDriver.getX(),
+    //   () -> m_xboxDriver.getRightX() + m_flightDriver.getZ(),
+    //   m_drive)
+    // );
+
     m_drive.setDefaultCommand(new CartesianDrive(
-      () -> -m_xboxDriver.getLeftY() + -m_flightDriver.getY(),
-      () -> m_xboxDriver.getLeftX() + m_flightDriver.getX(),
-      () -> m_xboxDriver.getRightX() + m_flightDriver.getZ(),
+      () -> -m_flightDriver.getY(),
+      () -> m_flightDriver.getX(),
+      () -> m_flightDriver.getZ(),
       m_drive)
     );
 
@@ -92,16 +102,16 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(m_xboxDriver, Button.kA.value).whenPressed(new ToggleFieldDrive(m_drive));
-    new JoystickButton(m_xboxDriver, Button.kB.value).whenHeld(new SlowDrive(m_drive));
-    new JoystickButton(m_xboxDriver, Button.kLeftBumper.value).whenHeld(new FrontNFeed(m_intake, m_feeder));
-    new JoystickButton(m_xboxDriver, Button.kRightBumper.value).whenHeld(new SideNFeed(m_intake, m_feeder));
+    // new JoystickButton(m_xboxDriver, Button.kA.value).whenPressed(new ToggleFieldDrive(m_drive));
+    // new JoystickButton(m_xboxDriver, Button.kB.value).whenHeld(new SlowDrive(m_drive));
+    // new JoystickButton(m_xboxDriver, Button.kLeftBumper.value).whenHeld(new FrontNFeed(m_intake, m_feeder));
+    // new JoystickButton(m_xboxDriver, Button.kRightBumper.value).whenHeld(new SideNFeed(m_intake, m_feeder));
 
 
-    new JoystickButton(m_flightDriver, FlightStick.Button.kTrigger.value).whenPressed(new ToggleFieldDrive(m_drive));
+    new JoystickButton(m_flightDriver, FlightStick.Button.kTrigger.value).whenHeld(new SlowDrive(m_drive));
     new JoystickButton(m_flightDriver, FlightStick.Button.kLeftTopMiddle.value).whenHeld(new FrontNFeed(m_intake, m_feeder));
     new JoystickButton(m_flightDriver, FlightStick.Button.kLeftTopRight.value).whenHeld(new SideNFeed(m_intake, m_feeder));
-    new JoystickButton(m_flightDriver, FlightStick.Button.kLeftTopLeft.value).whenHeld(new SlowDrive(m_drive));
+    new JoystickButton(m_flightDriver, FlightStick.Button.kLeftTopLeft.value).whenPressed(new ToggleFieldDrive(m_drive));
 
     new JoystickButton(m_operator, 1).whenHeld(new FrontNFeed(m_intake, m_feeder));
     new JoystickButton(m_operator, 2).whenHeld(new SideNFeed(m_intake, m_feeder));
@@ -119,6 +129,8 @@ public class RobotContainer {
     new JoystickButton(m_operator, 21).whenPressed(new StopShooter(m_shooter));
     new JoystickButton(m_operator, 22).whenPressed(new LEDOn(m_light));
     new JoystickButton(m_operator, 23).whenPressed(new LEDOff(m_light));
+    new JoystickButton(m_operator, 19).whenPressed(new ResetHookEncoders(m_climb));
+    new JoystickButton(m_operator, 20).whenPressed(new ResetArmEncoders(m_climb));
 
   }
 
@@ -128,6 +140,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return m_auto.getSelected();
+    // return m_auto.getSelected();
+    return new TwoBallNotLight(m_drive, m_intake, m_feeder, m_shooter);
   }
 }

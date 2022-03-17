@@ -36,6 +36,7 @@ public class Drivetrain extends SubsystemBase {
   private final ShuffleboardTab m_tab = Shuffleboard.getTab("Main");
   private final NetworkTableEntry m_toggle;
   private final NetworkTableEntry m_maxSpeed;
+  private final NetworkTableEntry m_gyroAngle;
 
   public boolean toggleFieldDrive = false;
   public double tempSpeed;
@@ -75,7 +76,8 @@ public class Drivetrain extends SubsystemBase {
 
     m_toggle = m_tab.add("Field Drive", toggleFieldDrive).withPosition(4, 0).getEntry();
     m_tab.add("Drivetrain", m_drive).withPosition(0, 0).withSize(4, 2);
-    // m_tab.add("Gyro", m_gyro).withPosition(0, 2).withSize(2, 2).withWidget(BuiltInWidgets.kGyro);
+    // m_tab.add("Gyro", m_gyro.getAbsoluteCompassHeading()).withPosition(0, 2).withSize(2, 2).withWidget(BuiltInWidgets.kGyro);
+    m_gyroAngle = m_tab.add("Gyro Angle", getGyroAngle()).getEntry();
     m_maxSpeed = m_tab.add("Max Speed", 1.0).withPosition(2, 2).withSize(2, 1).withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min", 0, "max", 1)).getEntry();
 
     m_maxSpeed.setDouble(DriveConstants.kDefaultSpeed);
@@ -251,5 +253,6 @@ public class Drivetrain extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     setMaxSpeed(m_maxSpeed.getDouble(1.0));
+    m_gyroAngle.setNumber(getGyroAngle());
   }
 }
