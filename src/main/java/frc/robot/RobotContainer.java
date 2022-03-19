@@ -16,8 +16,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.Auton.DriveThenShootOneBall;
-import frc.robot.commands.Auton.DriveThenShootTwoBall;
-import frc.robot.commands.Auton.ShootThenStrafeTwoBall;
 import frc.robot.commands.Auton.TwoBallNotLight;
 import frc.robot.commands.Climb.LeanBack;
 import frc.robot.commands.Climb.LeanForward;
@@ -91,8 +89,7 @@ public class RobotContainer {
 
     m_tab.add("Auton List", m_auto).withPosition(0, 2).withSize(2, 1).withWidget(BuiltInWidgets.kComboBoxChooser);
     m_auto.setDefaultOption("One Ball", new DriveThenShootOneBall(m_shooter, m_drive, m_feeder));
-    m_auto.addOption("Two Ball but bad", new ShootThenStrafeTwoBall(m_drive, m_shooter, m_feeder, m_intake));
-    m_auto.addOption("Two Ball but good", new DriveThenShootTwoBall(m_drive, m_intake, m_feeder, m_shooter, m_light));
+    m_auto.addOption("Two Ball", new TwoBallNotLight(m_drive, m_intake, m_feeder, m_shooter));
   }
 
   /**
@@ -140,7 +137,6 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // return m_auto.getSelected();
-    return new TwoBallNotLight(m_drive, m_intake, m_feeder, m_shooter);
+    return m_auto.getSelected();
   }
 }

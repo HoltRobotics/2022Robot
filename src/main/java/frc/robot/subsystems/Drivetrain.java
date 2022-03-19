@@ -106,6 +106,10 @@ public class Drivetrain extends SubsystemBase {
     m_drive.driveCartesian(ySpeed, xSpeed, zRotation * DriveConstants.kTurningSlowDown, gyroAngle);
   }
 
+  /**
+   * Sets the mode of operation during neutral throttle output.
+   * @param mode The desired mode of operation when the Controller output throttle is neutral (ie brake/coast)
+   */
   public void setNeutralMode(NeutralMode mode) {
     m_frontLeftMotor.setNeutralMode(mode);
     m_rearLeftMotor.setNeutralMode(mode);

@@ -64,7 +64,7 @@ public final class Constants {
     public static final class ClimbConstants {
         public static final int kArmMotor = 10;
         public static final int kHookMotor = 11;
-        public static final double kArmMotorSpeed = 0.5;
+        public static final double kArmMotorSpeed = 1.0;
         public static final double kHookMotorSpeed = 1.0;
         public static final double kArmGearRatio = 48;
         public static final double kHookGearRatio = 36;

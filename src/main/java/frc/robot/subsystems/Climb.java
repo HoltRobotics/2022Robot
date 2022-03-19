@@ -41,12 +41,8 @@ public class Climb extends SubsystemBase {
   }
 
   /**
-   * Raises the climbing arms.
+   * Resets the Hook Encoders to zero.
    */
-  public void runArms() {
-    m_arm.set(ClimbConstants.kArmMotorSpeed);
-  }
-
   public void resetHookEncoder(){
     m_hookEncoder.setPosition(0);
   }
@@ -54,6 +50,14 @@ public class Climb extends SubsystemBase {
   public void resetArmEncoder() {
     m_armEncoder.setPosition(0);
   }
+
+  /**
+   * Raises the climbing arms.
+   */
+  public void runArms() {
+    m_arm.set(ClimbConstants.kArmMotorSpeed);
+  }
+
 
   /**
    * Lowers the climbing arms.
