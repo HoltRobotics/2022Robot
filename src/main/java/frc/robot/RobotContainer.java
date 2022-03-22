@@ -120,7 +120,7 @@ public class RobotContainer {
     new JoystickButton(m_operator, 8).whenHeld(new FastShoot(m_shooter));
     new JoystickButton(m_operator, 9).whenHeld(new LowerHubShoot(m_shooter));
     new JoystickButton(m_operator, 11).whenHeld(new RaiseArms(m_climb));
-    new JoystickButton(m_operator, 12).whenHeld(new LowerArms(m_climb));
+    new JoystickButton(m_operator, 12).whileHeld(new LowerArms(m_climb));
     new JoystickButton(m_operator, 13).whenHeld(new LeanBack(m_climb));
     new JoystickButton(m_operator, 15).whenHeld(new LeanForward(m_climb));
     new JoystickButton(m_operator, 21).whenPressed(new StopShooter(m_shooter));
