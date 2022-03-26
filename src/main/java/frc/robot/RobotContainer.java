@@ -17,6 +17,8 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.Auton.DriveThenShootOneBall;
 import frc.robot.commands.Auton.TwoBallNotLight;
+import frc.robot.commands.Climb.ForceArmsDown;
+import frc.robot.commands.Climb.ForceHooksBack;
 import frc.robot.commands.Climb.LeanBack;
 import frc.robot.commands.Climb.LeanForward;
 import frc.robot.commands.Climb.LowerArms;
@@ -88,8 +90,8 @@ public class RobotContainer {
     );
 
     m_tab.add("Auton List", m_auto).withPosition(0, 2).withSize(2, 1).withWidget(BuiltInWidgets.kComboBoxChooser);
-    m_auto.setDefaultOption("One Ball", new DriveThenShootOneBall(m_shooter, m_drive, m_feeder));
-    m_auto.addOption("Two Ball", new TwoBallNotLight(m_drive, m_intake, m_feeder, m_shooter));
+    m_auto.addOption("One Ball", new DriveThenShootOneBall(m_shooter, m_drive, m_feeder));
+    m_auto.setDefaultOption("Two Ball", new TwoBallNotLight(m_drive, m_intake, m_feeder, m_shooter));
   }
 
   /**
@@ -123,11 +125,13 @@ public class RobotContainer {
     new JoystickButton(m_operator, 12).whileHeld(new LowerArms(m_climb));
     new JoystickButton(m_operator, 13).whenHeld(new LeanBack(m_climb));
     new JoystickButton(m_operator, 15).whenHeld(new LeanForward(m_climb));
+    new JoystickButton(m_operator, 17).whenHeld(new ForceHooksBack(m_climb));
+    new JoystickButton(m_operator, 18).whenHeld(new ForceArmsDown(m_climb));
+    new JoystickButton(m_operator, 19).whenPressed(new ResetHookEncoders(m_climb));
+    new JoystickButton(m_operator, 20).whenPressed(new ResetArmEncoders(m_climb));
     new JoystickButton(m_operator, 21).whenPressed(new StopShooter(m_shooter));
     new JoystickButton(m_operator, 22).whenPressed(new LEDOn(m_light));
     new JoystickButton(m_operator, 23).whenPressed(new LEDOff(m_light));
-    new JoystickButton(m_operator, 19).whenPressed(new ResetHookEncoders(m_climb));
-    new JoystickButton(m_operator, 20).whenPressed(new ResetArmEncoders(m_climb));
 
   }
 

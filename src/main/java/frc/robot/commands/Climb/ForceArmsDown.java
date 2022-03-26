@@ -5,19 +5,16 @@
 package frc.robot.commands.Climb;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.ClimbConstants;
 import frc.robot.subsystems.Climb;
 
-public class RaiseArms extends CommandBase {
+public class ForceArmsDown extends CommandBase {
   private final Climb m_climb;
-  
-  /**
-   * Command to raise the climbing arms on the robot.
-   * @param climb Required Climb Subsystem
-   */
-  public RaiseArms(Climb climb) {
+
+  /** Creates a new ForceArmsDown. */
+  public ForceArmsDown(Climb climb) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_climb = climb;
+    addRequirements(m_climb);
   }
 
   // Called when the command is initially scheduled.
@@ -27,7 +24,7 @@ public class RaiseArms extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_climb.raiseArms();
+    m_climb.lowerArms();
   }
 
   // Called once the command ends or is interrupted.
@@ -39,10 +36,6 @@ public class RaiseArms extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(m_climb.getArmPosition() >= ClimbConstants.kArmEncoderMaxValue) {
-      return true;
-    } else {
-      return false;
-    }
+    return false;
   }
 }

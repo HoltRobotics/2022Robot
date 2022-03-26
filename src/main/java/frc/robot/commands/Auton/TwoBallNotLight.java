@@ -8,6 +8,7 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.ShooterConstants;
+import frc.robot.commands.Combo.BothNFeed;
 import frc.robot.commands.Combo.FrontNFeed;
 import frc.robot.commands.Drive.DriveBackDistance;
 import frc.robot.commands.Drive.DriveForwardDistance;
@@ -29,15 +30,18 @@ public class TwoBallNotLight extends SequentialCommandGroup {
     addCommands(
       new ParallelRaceGroup(
         new DriveForwardDistance(Units.inchesToMeters(65), drive),
-        new FrontNFeed(intake, feeder)
+        // new FrontNFeed(intake, feeder)
+        new BothNFeed(intake, feeder)
       ),
-      new FrontNFeed(intake, feeder).withTimeout(1),
+      // new FrontNFeed(intake, feeder).withTimeout(1),
+      new BothNFeed(intake, feeder).withTimeout(1),
       new TurnRightAngle(170, drive),
       new SetShooterSetpoint(ShooterConstants.kSlowShootRPM, shooter),
       new StartShooter(shooter),
       new DriveForwardDistance(Units.inchesToMeters(35), drive),
       new FeedBallsUp(feeder).withTimeout(0.5),
-      new FrontNFeed(intake, feeder).withTimeout(1),
+      // new FrontNFeed(intake, feeder).withTimeout(1),
+      new BothNFeed(intake, feeder).withTimeout(1),
       new FeedBallsUp(feeder).withTimeout(1),
       new StopShooter(shooter),
       new DriveBackDistance(1, drive)

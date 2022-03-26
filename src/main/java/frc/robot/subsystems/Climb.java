@@ -54,7 +54,7 @@ public class Climb extends SubsystemBase {
   /**
    * Raises the climbing arms.
    */
-  public void runArms() {
+  public void raiseArms() {
     m_arm.set(ClimbConstants.kArmMotorSpeed);
   }
 
