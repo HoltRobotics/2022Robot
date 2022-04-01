@@ -49,6 +49,10 @@ public class Feeder extends SubsystemBase {
     m_frontFeederMotor.set(FeederConstants.kFeederMotorSpeed);
   }
 
+  public void runBackFeederDown() {
+    m_beltFeederMotor.set(-FeederConstants.kFeederMotorSpeed);
+  }
+
   /**
    * Stops both feeder motors.
    */

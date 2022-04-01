@@ -2,46 +2,40 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.Drive;
+package frc.robot.commands.Feeder;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Feeder;
 
-public class PlayMusic extends CommandBase {
-  private final Drivetrain m_drive;
+public class BeltsDown extends CommandBase {
+  private final Feeder m_feeder;
 
-  /**
-   * Command to make the Falcons play music.
-   * @param drive Required Drive Subsystem
-   */
-  public PlayMusic(Drivetrain drive) {
+  /** Creates a new BeltsDown. */
+  public BeltsDown(Feeder feeder) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_drive = drive;
-    addRequirements(drive);
+    m_feeder = feeder;
+    addRequirements(m_feeder);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    m_drive.playMusic();
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_drive.playMusic();
-
+    m_feeder.runBackFeederDown();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_drive.stopMusic();
+    m_feeder.stopFeeder();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_drive.isPlayingMusic();
+    return false;
   }
 }
