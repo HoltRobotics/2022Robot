@@ -12,7 +12,11 @@ public class TurnRightAngle extends CommandBase {
   private final double m_angle;
   private final Drivetrain m_drive;
 
-  /** Creates a new TurnRightAngle. */
+  /**
+   * Command to turn the robot a certain angle.
+   * @param drive The drivetrain subsystem
+   * @param angle The angle to turn the robot
+   */
   public TurnRightAngle(double angle, Drivetrain drive) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_angle = angle;

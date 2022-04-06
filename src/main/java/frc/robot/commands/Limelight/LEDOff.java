@@ -9,6 +9,11 @@ import frc.robot.subsystems.Limelight;
 
 public class LEDOff extends InstantCommand {
   private final Limelight m_light;
+
+  /**
+   * Command to set the limelight LEDs to off.
+   * @param light The limelight subsystem
+   */
   public LEDOff(Limelight light) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_light = light;

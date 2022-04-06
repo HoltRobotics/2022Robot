@@ -12,6 +12,10 @@ import frc.robot.subsystems.Drivetrain;
 public class SetCoastMode extends InstantCommand {
   private final Drivetrain m_drive;
 
+  /**
+   * Command to set the drive motors to coast mode.
+   * @param drive The drivetrain subsystem
+   */
   public SetCoastMode(Drivetrain drive) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_drive = drive;

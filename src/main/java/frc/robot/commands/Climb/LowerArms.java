@@ -10,11 +10,13 @@ import frc.robot.subsystems.Climb;
 public class LowerArms extends CommandBase {
   private final Climb m_climb;
   
-  /** Creates a new LowerArms. */
+  /**
+   * Command that lowers the arms.
+   * @param climb The climb subsystem
+   */
   public LowerArms(Climb climb) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_climb = climb;
-    // addRequirements(m_climb);
   }
 
   // Called when the command is initially scheduled.

@@ -11,8 +11,8 @@ public class FrontIntake extends CommandBase {
   private final Intake m_intake;
 
   /**
-   * Command that runs the front intake forward.
-   * @param intake Required Intake Subsystem
+   * Command that runs the front intake.
+   * @param intake The intake subsystem
    */
   public FrontIntake(Intake intake) {
     // Use addRequirements() here to declare subsystem dependencies.

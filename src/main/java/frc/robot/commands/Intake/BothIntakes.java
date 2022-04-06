@@ -10,7 +10,10 @@ import frc.robot.subsystems.Intake;
 public class BothIntakes extends CommandBase {
 private final Intake m_intake;
 
-  /** Creates a new BothIntakes. */
+  /**
+   * Command that runs both intakes.
+   * @param intake The intake subsystem
+   */
   public BothIntakes(Intake intake) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_intake = intake;

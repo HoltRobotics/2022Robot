@@ -12,7 +12,7 @@ public class SlowDrive extends CommandBase {
  
   /**
    * Command that cuts the speed of the robot in halve when running.
-   * @param drive Required Drive Subsystem
+   * @param drive The drivetrain subsystem
    */
   public SlowDrive(Drivetrain drive) {
     // Use addRequirements() here to declare subsystem dependencies.

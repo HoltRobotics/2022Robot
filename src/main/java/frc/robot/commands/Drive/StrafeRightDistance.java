@@ -12,7 +12,11 @@ public class StrafeRightDistance extends CommandBase {
   private final double m_distance;
   private final Drivetrain m_drive;
 
-  /** Creates a new StrafeRightDistance. */
+  /**
+   * Command to strafe right a certain distance.
+   * @param drive The drivetrain subsystem
+   * @param distance The distance in meters to strafe right
+   */
   public StrafeRightDistance(double distance, Drivetrain drive) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_distance = distance;

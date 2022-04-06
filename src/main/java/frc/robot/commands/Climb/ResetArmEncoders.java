@@ -10,6 +10,10 @@ import frc.robot.subsystems.Climb;
 public class ResetArmEncoders extends InstantCommand {
   private final Climb m_climb;
 
+  /**
+   * Command that resets the arm encoders.
+   * @param climb The climb subsystem
+   */
   public ResetArmEncoders(Climb climb) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_climb = climb;

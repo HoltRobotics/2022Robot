@@ -12,8 +12,8 @@ public class RaiseArms extends CommandBase {
   private final Climb m_climb;
   
   /**
-   * Command to raise the climbing arms on the robot.
-   * @param climb Required Climb Subsystem
+   * Command that raises the arms.
+   * @param climb The climb subsystem
    */
   public RaiseArms(Climb climb) {
     // Use addRequirements() here to declare subsystem dependencies.

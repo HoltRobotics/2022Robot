@@ -26,7 +26,14 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 
 public class TwoBallLeftSide extends SequentialCommandGroup {
-  /** Creates a new TwoBallNotLight. */
+  
+  /**
+   * Autonomous command for the left side of the field that drives forward, picks up a ball, turns, drives forward, then shoots both balls.
+   * @param drive The drivetrain subsystem
+   * @param intake The intake subsystem
+   * @param feeder The feeder subsystem
+   * @param shooter The shooter subsystem
+   */
   public TwoBallLeftSide(Drivetrain drive, Intake intake, Feeder feeder, Shooter shooter) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());

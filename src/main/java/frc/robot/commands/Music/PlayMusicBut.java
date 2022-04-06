@@ -11,7 +11,12 @@ import frc.robot.subsystems.Music;
 public class PlayMusicBut extends CommandBase {
   private final Music m_music;
   private final Drivetrain m_drive;
-  /** Creates a new PlayMusic. */
+  
+  /**
+   * Command that plays music.
+   * @param music The music subsystem
+   * @param drive The drivetrain subsystem
+   */
   public PlayMusicBut(Music music, Drivetrain drive) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_music = music;

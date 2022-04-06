@@ -11,8 +11,8 @@ public class FeedFront extends CommandBase {
   private final Feeder m_feeder;
 
   /**
-   * Command to run only the front feeder up.
-   * @param feeder Required Feeder Subsystem
+   * Command that runs only the front feeder.
+   * @param feeder The feeder subsystem
    */
   public FeedFront(Feeder feeder) {
     // Use addRequirements() here to declare subsystem dependencies.

@@ -12,7 +12,7 @@ public class PlayMusic extends CommandBase {
 
   /**
    * Command to make the Falcons play music.
-   * @param drive Required Drive Subsystem
+   * @param drive The drivetrain subsystem
    */
   public PlayMusic(Drivetrain drive) {
     // Use addRequirements() here to declare subsystem dependencies.

@@ -10,7 +10,10 @@ import frc.robot.subsystems.Climb;
 public class ForceArmsUp extends CommandBase {
   private final Climb m_climb;
 
-  /** Creates a new ForceArmsDown. */
+  /**
+   * Command that forces the arms up bypassing the limits.
+   * @param climb The climb subsystem
+   */
   public ForceArmsUp(Climb climb) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_climb = climb;

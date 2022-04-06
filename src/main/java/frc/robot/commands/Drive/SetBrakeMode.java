@@ -11,6 +11,11 @@ import frc.robot.subsystems.Drivetrain;
 
 public class SetBrakeMode extends InstantCommand {
   private final Drivetrain m_drive;
+
+  /**
+   * Command to set the drive motors to brake mode.
+   * @param drive The drivetrain subsystem
+   */
   public SetBrakeMode(Drivetrain drive) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_drive = drive;

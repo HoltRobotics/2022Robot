@@ -13,10 +13,10 @@ public class DriveForwardDistance extends CommandBase {
   private final Drivetrain m_drive;
 
   /**
-   * Simple Drive command.
+   * Command that drives the robot forward a certain distance.
    * <p>It drives forward at halfspeed for a set distance.
    * @param distance The distance to drive in meters.
-   * @param drive The required subsystem.
+   * @param drive The drivetrain subsystem
    */
   public DriveForwardDistance(double distance, Drivetrain drive) {
     // Use addRequirements() here to declare subsystem dependencies.

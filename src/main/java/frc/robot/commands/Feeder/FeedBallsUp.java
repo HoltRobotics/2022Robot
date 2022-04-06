@@ -11,8 +11,8 @@ public class FeedBallsUp extends CommandBase {
   private final Feeder m_feeder;
 
   /**
-   * Command that runs both the front feeder and the belt feeder up.
-   * @param feeder Required Feeder Subsystem
+   * Command to feed balls up.
+   * @param feeder The feeder subsystem
    */
   public FeedBallsUp(Feeder feeder) {
     // Use addRequirements() here to declare subsystem dependencies.

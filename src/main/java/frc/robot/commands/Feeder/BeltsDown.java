@@ -10,7 +10,10 @@ import frc.robot.subsystems.Feeder;
 public class BeltsDown extends CommandBase {
   private final Feeder m_feeder;
 
-  /** Creates a new BeltsDown. */
+  /**
+   * Command to run the belts down.
+   * @param feeder The feeder subsystem
+   */
   public BeltsDown(Feeder feeder) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_feeder = feeder;

@@ -9,7 +9,11 @@ import frc.robot.subsystems.Shooter;
 
 public class BackwardsShooter extends CommandBase {
   private final Shooter m_shooter;
-  /** Creates a new BackwardsShooter. */
+
+  /**
+   * Command that runs the shooter backwards.
+   * @param shooter The shooter subsystem
+   */
   public BackwardsShooter(Shooter shooter) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_shooter = shooter;

@@ -11,7 +11,10 @@ import frc.robot.subsystems.Shooter;
 public class MidShoot extends CommandBase {
   private final Shooter m_shooter;
 
-  /** Creates a new SlowShoot. */
+  /**
+   * Command that runs the shooter at a mid speed.
+   * @param shooter The shooter subsystem
+   */
   public MidShoot(Shooter shooter) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_shooter = shooter;

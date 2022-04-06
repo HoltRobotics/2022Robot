@@ -11,6 +11,11 @@ public class PIDShoot extends CommandBase {
   private final Shooter m_shooter;
   private final double m_rpm;
 
+  /**
+   * Command that runs the shooter at a certain RPM.
+   * @param shooter The shooter subsystem
+   * @param rpm The RPM to run the shooter at
+   */
   public PIDShoot(double rpm, Shooter shooter) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_rpm = rpm;

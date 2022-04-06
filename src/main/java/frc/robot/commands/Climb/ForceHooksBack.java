@@ -10,7 +10,10 @@ import frc.robot.subsystems.Climb;
 public class ForceHooksBack extends CommandBase {
   private final Climb m_climb;
 
-  /** Creates a new ForceArmsDown. */
+  /**
+   * Command that forces the hooks back bypassing the limits.
+   * @param climb The climb subsystem
+   */
   public ForceHooksBack(Climb climb) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_climb = climb;

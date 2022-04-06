@@ -11,8 +11,8 @@ public class StartShooter extends InstantCommand {
   private final Shooter m_shooter;
 
   /**
-   * Command that only starts the shooter. Will NOT stop it after ending.
-   * @param shooter Required Shooter Subsystem.
+   * Command that starts the shooter.
+   * @param shooter The shooter subsystem
    */
   public StartShooter(Shooter shooter) {
     // Use addRequirements() here to declare subsystem dependencies.

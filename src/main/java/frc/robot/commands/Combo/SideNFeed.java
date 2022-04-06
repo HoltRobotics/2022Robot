@@ -12,9 +12,9 @@ import frc.robot.subsystems.Intake;
 
 public class SideNFeed extends ParallelCommandGroup {
   /**
-   * Command Group that runs the side intake and the front feeder to help obtain the ball.
-   * @param intake Required Intake Subsystem
-   * @param feeder Required Feeder Subsystem
+   * Command that runs the side intake and the front feeder.
+   * @param intake The intake subsystem
+   * @param feeder The feeder subsystem
    */
   public SideNFeed(Intake intake, Feeder feeder) {
     // Add your commands in the addCommands() call, e.g.

@@ -11,11 +11,13 @@ import frc.robot.subsystems.Climb;
 public class LeanForward extends CommandBase {
   private final Climb m_climb;
 
-  /** Creates a new LeanForward. */
+  /**
+   * Command that leans the robot forward.
+   * @param climb The climb subsystem
+   */
   public LeanForward(Climb climb) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_climb = climb;
-    // addRequirements(m_climb);
   }
 
   // Called when the command is initially scheduled.

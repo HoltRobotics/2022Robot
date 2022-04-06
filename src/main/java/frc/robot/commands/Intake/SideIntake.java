@@ -11,8 +11,8 @@ public class SideIntake extends CommandBase {
   private final Intake m_intake;
   
   /**
-   * Command that runs the side intake forwards.
-   * @param intake Required Intake Subsystem
+   * Command that runs the side intake.
+   * @param intake The intake subsystem
    */
   public SideIntake(Intake intake) {
     // Use addRequirements() here to declare subsystem dependencies.

@@ -9,6 +9,11 @@ import frc.robot.subsystems.Intake;
 
 public class StopIntake extends InstantCommand {
   private final Intake m_intake;
+
+  /**
+   * Command that stops the intakes.
+   * @param intake The intake subsystem
+   */
   public StopIntake(Intake intake) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_intake = intake;

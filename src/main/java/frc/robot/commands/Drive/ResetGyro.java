@@ -10,6 +10,10 @@ import frc.robot.subsystems.Drivetrain;
 public class ResetGyro extends InstantCommand {
   private final Drivetrain m_drive;
 
+  /**
+   * Command to reset the gyroscope.
+   * @param drive The drivetrain subsystem
+   */
   public ResetGyro(Drivetrain drive) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_drive = drive;

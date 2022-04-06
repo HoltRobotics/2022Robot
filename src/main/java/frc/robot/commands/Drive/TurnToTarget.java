@@ -12,7 +12,11 @@ public class TurnToTarget extends CommandBase {
   private final Drivetrain m_drive;
   private final Limelight m_light;
   
-  /** Creates a new TurnToTarget. */
+  /**
+   * Command to turn the robot to the hab.
+   * @param drive The drivetrain subsystem
+   * @param light The limelight subsystem
+   */
   public TurnToTarget(Drivetrain drive, Limelight light) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_drive = drive;

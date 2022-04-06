@@ -10,8 +10,11 @@ import frc.robot.subsystems.Shooter;
 
 public class LowerHubShoot extends CommandBase {
   private final Shooter m_shooter;
-
-  /** Creates a new SlowShoot. */
+  
+  /**
+   * Command that shoots into the lower hub.
+   * @param shooter The shooter subsystem
+   */
   public LowerHubShoot(Shooter shooter) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_shooter = shooter;

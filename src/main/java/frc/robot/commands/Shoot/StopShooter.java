@@ -11,8 +11,8 @@ public class StopShooter extends InstantCommand {
   private final Shooter m_shooter;
 
   /**
-   * Command to stop the shooter if it is running.
-   * @param shooter Required Shooter Subsystem.
+   * Command that stops the shooter.
+   * @param shooter The shooter subsystem
    */
   public StopShooter(Shooter shooter) {
     // Use addRequirements() here to declare subsystem dependencies.

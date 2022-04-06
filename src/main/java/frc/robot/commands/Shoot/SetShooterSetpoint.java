@@ -11,6 +11,11 @@ public class SetShooterSetpoint extends InstantCommand {
   private final Double m_setPoint;
   private final Shooter m_shooter;
 
+  /**
+   * Command that sets the shooter setpoint.
+   * @param setPoint The setpoint to set
+   * @param shooter The shooter subsystem
+   */
   public SetShooterSetpoint(Double setPoint, Shooter shooter) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_setPoint = setPoint;

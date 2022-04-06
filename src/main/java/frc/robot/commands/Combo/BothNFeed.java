@@ -11,7 +11,11 @@ import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Intake;
 
 public class BothNFeed extends ParallelCommandGroup {
-  /** Creates a new BothNFeed. */
+  /**
+   * Command that runs both intakes and the front feeder.
+   * @param intake The intake subsystem
+   * @param feeder The feeder subsystem
+   */
   public BothNFeed(Intake intake, Feeder feeder) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());

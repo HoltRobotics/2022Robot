@@ -12,7 +12,11 @@ public class SetShooterForDistance extends CommandBase {
   private final Shooter m_shooter;
   private final Limelight m_light;
 
-  /** Creates a new SetShooterForDistance. */
+  /**
+   * Command that sets the shooter for a certain distance.
+   * @param shooter The shooter subsystem
+   * @param light The limelight subsystem
+   */
   public SetShooterForDistance(Shooter shooter, Limelight light) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_shooter = shooter;
