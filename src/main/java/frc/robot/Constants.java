@@ -26,6 +26,13 @@ public final class Constants {
         public static final double kSlowDriveSpeed = 0.5;
         public static final double kTurningSlowDown = 0.75;
 
+        // TODO: Tune these values
+        public static final double kS = 0;
+        public static final double kV = 0;
+        public static final double kP = 0;
+        public static final double kI = 0;
+        public static final double kD = 0;
+
         public static final int kPigeonID = 12;
 
         public static final double kWheelDiameterMeters = Units.inchesToMeters(6);
@@ -70,6 +77,12 @@ public final class Constants {
         public static final double kHookGearRatio = 36;
         public static final double kArmEncoderMaxValue = 300;
         public static final double kHookEncoderMaxValue = 360;
+    }
+
+    public static final class LimelightConstant {
+        public static final double kLimelightHeightMeters = Units.inchesToMeters(24); // TODO: Get actual height
+        public static final double kLimelightAngle = 30; // TODO: Get actual angle
+        public static final double kHubHeightMeters = Units.inchesToMeters(104);
     }
 
     public static final class OIConstants {

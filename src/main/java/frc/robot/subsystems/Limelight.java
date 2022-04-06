@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.LimelightConstant;
 
 public class Limelight extends SubsystemBase {
 
@@ -44,14 +45,34 @@ public class Limelight extends SubsystemBase {
     m_table.getEntry("ledMode").setNumber(mode);
   }
 
+  /**
+   * Gets the distance to the Hub upper goal.
+   * @return the distance in meters
+   */
+  public double getDistance() {
+    return (LimelightConstant.kHubHeightMeters - LimelightConstant.kLimelightHeightMeters) / Math.tan(Math.toRadians(LimelightConstant.kLimelightAngle) + Math.toRadians(getTX()));
+  }
+
+  /**
+   * Checks if the limelight has any valid targets.
+   * @return true if the limelight has a valid target
+   */
   public boolean getTV() {
     return ty.getFlags() == 1;
   }
 
+  /**
+   * Gets the horizontal offset from the crosshair to the target.
+   * @return the horizontal offset in degrees
+   */
   public double getTX() {
     return tx.getDouble(0.0);
   }
 
+  /**
+   * Gets the vertical offset from the crosshair to the target.
+   * @return the vertical offset in degrees
+   */
   public double getTY() {
     return ty.getDouble(0.0);
   }

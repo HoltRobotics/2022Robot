@@ -36,8 +36,8 @@ public class Climb extends SubsystemBase {
     m_arm.setIdleMode(IdleMode.kBrake);
     m_hooks.setIdleMode(IdleMode.kBrake);
 
-    m_armLocation = m_tab.add("Arm Location", getArmPosition()).getEntry();
-    m_hookLocation = m_tab.add("Hook Location", getHookPosition()).getEntry();
+    m_armLocation = m_tab.add("Arm Location", getArmPosition()).withPosition(6, 0).getEntry();
+    m_hookLocation = m_tab.add("Hook Location", getHookPosition()).withPosition(6, 1).getEntry();
   }
 
   /**

@@ -6,9 +6,11 @@
       "/LiveWindow/Drivetrain": "Subsystem",
       "/LiveWindow/Feeder": "Subsystem",
       "/LiveWindow/Intake": "Subsystem",
+      "/LiveWindow/Limelight": "Subsystem",
       "/LiveWindow/Shooter": "Subsystem",
       "/LiveWindow/Shooter/PID Controller": "PIDController",
       "/LiveWindow/Ungrouped/MecanumDrive[1]": "MecanumDrive",
+      "/LiveWindow/Ungrouped/PIDController[1]": "PIDController",
       "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
       "/LiveWindow/Ungrouped/Talon FX [9]": "Motor Controller",
       "/LiveWindow/Ungrouped/Victor SPX [5]": "Motor Controller",
@@ -16,8 +18,11 @@
       "/LiveWindow/Ungrouped/Victor SPX [7]": "Motor Controller",
       "/LiveWindow/Ungrouped/Victor SPX [8]": "Motor Controller",
       "/LiveWindow/Ungrouped/navX-Sensor[4]": "Gyro",
+      "/Shuffleboard/Main/Auton List": "String Chooser",
       "/Shuffleboard/Main/Drivetrain": "MecanumDrive",
-      "/Shuffleboard/Main/Gyro": "Gyro"
+      "/Shuffleboard/Main/Gyro": "Gyro",
+      "/Shuffleboard/Main/PID": "PIDController",
+      "/Shuffleboard/Main/Turning PID": "PIDController"
     },
     "windows": {
       "/Shuffleboard/Main/Drivetrain": {

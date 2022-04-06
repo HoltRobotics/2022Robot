@@ -13,6 +13,8 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.music.Orchestra;
 import com.ctre.phoenix.sensors.Pigeon2;
 
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
@@ -28,6 +30,9 @@ public class Drivetrain extends SubsystemBase {
   private final WPI_TalonFX m_rearRightMotor = new WPI_TalonFX(DriveConstants.kRearRightMotor);
 
   private MecanumDrive m_drive = new MecanumDrive(m_frontLeftMotor, m_rearLeftMotor, m_frontRightMotor, m_rearRightMotor);
+
+  private final SimpleMotorFeedforward m_feedforward = new SimpleMotorFeedforward(DriveConstants.kS, DriveConstants.kV);
+  private final PIDController m_turnController = new PIDController(DriveConstants.kP, DriveConstants.kI, DriveConstants.kD);
 
   private final Orchestra m_orchestra = new Orchestra();
 
@@ -77,8 +82,9 @@ public class Drivetrain extends SubsystemBase {
     m_toggle = m_tab.add("Field Drive", toggleFieldDrive).withPosition(4, 0).getEntry();
     m_tab.add("Drivetrain", m_drive).withPosition(0, 0).withSize(4, 2);
     // m_tab.add("Gyro", m_gyro.getAbsoluteCompassHeading()).withPosition(0, 2).withSize(2, 2).withWidget(BuiltInWidgets.kGyro);
-    m_gyroAngle = m_tab.add("Gyro Angle", getGyroAngle()).getEntry();
+    m_gyroAngle = m_tab.add("Gyro Angle", getGyroAngle()).withPosition(4, 2).getEntry();
     m_maxSpeed = m_tab.add("Max Speed", 1.0).withPosition(2, 2).withSize(2, 1).withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min", 0, "max", 1)).getEntry();
+    m_tab.add("Turning PID", m_turnController).withPosition(7, 0).withSize(1, 2).withWidget(BuiltInWidgets.kPIDController);
 
     m_maxSpeed.setDouble(DriveConstants.kDefaultSpeed);
   }
@@ -251,6 +257,14 @@ public class Drivetrain extends SubsystemBase {
    */
   public void stopDrive() {
     m_drive.stopMotor();
+  }
+
+  public SimpleMotorFeedforward getFeedforward() {
+    return m_feedforward;
+  }
+
+  public PIDController getPIDController() {
+    return m_turnController;
   }
 
   @Override

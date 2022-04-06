@@ -94,6 +94,10 @@ public class Shooter extends PIDSubsystem {
     return m_shooterMotor.getSelectedSensorVelocity() * 600 / 2048;
   }
 
+  public double distanceToRPM(double distance) {
+    return distance; //TODO: find the right equation for this
+  }
+
   /**
    * Returns the Shuffleboard tab to add stuff.
    * @return the Shuffleboard tab.
