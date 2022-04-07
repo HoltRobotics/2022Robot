@@ -43,12 +43,15 @@ public class Feeder extends SubsystemBase {
   }
 
   /**
-   * Runs only the front feed at the Feeder Motor Speed Contant.
+   * Runs only the front feeder at the Feeder Motor Speed Contant.
    */
   public void runFrontFeeder() {
     m_frontFeederMotor.set(FeederConstants.kFeederMotorSpeed);
   }
 
+  /**
+   * Runs only the belt feeder backwards at the Feeder Motor Speed Contant.
+   */
   public void runBackFeederDown() {
     m_beltFeederMotor.set(-FeederConstants.kFeederMotorSpeed);
   }

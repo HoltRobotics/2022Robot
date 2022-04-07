@@ -55,6 +55,9 @@ public class Shooter extends PIDSubsystem {
     return getRPM();
   }
 
+  /**
+   * Returns true if the shooter is at or above the setpoint.
+   */
   public boolean isAtSetPoint() {
     if(getRPM() >= getSetpoint()) {
       return true;
@@ -94,6 +97,10 @@ public class Shooter extends PIDSubsystem {
     return m_shooterMotor.getSelectedSensorVelocity() * 600 / 2048;
   }
 
+  /**
+   * Returns the needed shooter RPM to hit the target.
+   * @param distance The distance the robot is from the target.
+   */
   public double distanceToRPM(double distance) {
     return distance; //TODO: find the right equation for this
   }

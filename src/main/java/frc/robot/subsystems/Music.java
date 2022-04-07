@@ -30,15 +30,19 @@ public class Music extends SubsystemBase {
     m_orchestra.loadMusic("motherland.chrp");
   }
 
+  /**
+   * Plays the music.
+   */
   public void playMusic() {
     m_orchestra.play();
   }
 
+  /**
+   * Stops the music.
+   */
   public void stopMusic() {
     m_orchestra.stop();
   }
-
-
 
   @Override
   public void periodic() {

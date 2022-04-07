@@ -27,7 +27,7 @@ public class Climb extends SubsystemBase {
   private final NetworkTableEntry m_hookLocation;
 
   /**
-   * Climb Subsystem
+   * Climb Subsystem. This is the subsystem that controls the climbing mechanism.
    */
   public Climb() {
     m_arm.setInverted(true);
@@ -47,6 +47,9 @@ public class Climb extends SubsystemBase {
     m_hookEncoder.setPosition(0);
   }
 
+  /**
+   * Resets the Arm Encoders to zero.
+   */
   public void resetArmEncoder() {
     m_armEncoder.setPosition(0);
   }
@@ -80,10 +83,16 @@ public class Climb extends SubsystemBase {
     m_hooks.set(-ClimbConstants.kHookMotorSpeed);
   }
 
+  /**
+   * Returns the current position of the hooks.
+   */
   public double getHookPosition() {
     return -m_hookEncoder.getPosition();
   }
 
+  /**
+   * Returns the current position of the arms.
+   */
   public double getArmPosition() {
     return m_armEncoder.getPosition();
   }

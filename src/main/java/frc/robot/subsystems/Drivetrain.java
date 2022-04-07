@@ -47,7 +47,7 @@ public class Drivetrain extends SubsystemBase {
   public double tempSpeed;
 
   /**
-   * Drivetrain Subsystem
+   * Drivetrain Subsystem. This is the subsystem that controls the drivetrain.
    */
   public Drivetrain() {
     m_frontLeftMotor.setNeutralMode(NeutralMode.Coast);
@@ -259,10 +259,16 @@ public class Drivetrain extends SubsystemBase {
     m_drive.stopMotor();
   }
 
+  /**
+   * Returns the Feedforward.
+   */
   public SimpleMotorFeedforward getFeedforward() {
     return m_feedforward;
   }
 
+  /**
+   * Returns the PIDController.
+   */
   public PIDController getPIDController() {
     return m_turnController;
   }
