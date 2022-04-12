@@ -5,6 +5,7 @@
 package frc.robot.commands.Auton;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.commands.Drive.DriveBackDistance;
 import frc.robot.commands.Drive.SetBrakeMode;
@@ -31,10 +32,10 @@ public class DriveThenShootOneBall extends SequentialCommandGroup {
       new SetBrakeMode(drive),
       new SetShooterSetpoint(ShooterConstants.kSlowShootRPM, shooter),
       new StartShooter(shooter),
-      new DriveBackDistance(1.5, drive),
+      new DriveBackDistance(1.5, DriveConstants.kAutonSpeed, drive),
       new FeedBallsUp(feeder).withTimeout(1),
       new StopShooter(shooter),
-      new DriveBackDistance(1, drive),
+      new DriveBackDistance(1, DriveConstants.kAutonSpeed, drive),
       new SetCoastMode(drive)
     );
   }

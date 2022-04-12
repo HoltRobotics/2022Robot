@@ -29,12 +29,15 @@ import frc.robot.commands.Climb.ResetHookEncoders;
 import frc.robot.commands.Combo.FrontNFeed;
 import frc.robot.commands.Combo.SideNFeed;
 import frc.robot.commands.Drive.CartesianDrive;
+import frc.robot.commands.Drive.DriveToTarget;
 import frc.robot.commands.Drive.SlowDrive;
 import frc.robot.commands.Drive.ToggleFieldDrive;
+import frc.robot.commands.Drive.TurnToTargetPID;
 import frc.robot.commands.Feeder.FeedBallsDown;
 import frc.robot.commands.Feeder.FeedBallsUp;
 import frc.robot.commands.Limelight.LEDOff;
 import frc.robot.commands.Limelight.LEDOn;
+import frc.robot.commands.Shoot.AutoRPM;
 import frc.robot.commands.Shoot.BackwardsShooter;
 import frc.robot.commands.Shoot.FastShoot;
 import frc.robot.commands.Shoot.LowerHubShoot;
@@ -94,6 +97,7 @@ public class RobotContainer {
     m_auto.addOption("One Ball", new DriveThenShootOneBall(m_shooter, m_drive, m_feeder));
     m_auto.setDefaultOption("Two Ball Left Side", new TwoBallLeftSide(m_drive, m_intake, m_feeder, m_shooter));
     m_auto.addOption("Two Ball Right Side", new TwoBallRightSide(m_drive, m_intake, m_feeder, m_shooter));
+    // m_auto.addOption("Three Ball Right Side", new ThreeBallRightSIde(m_drive, m_intake, m_feeder, m_shooter));
   }
 
   /**
@@ -113,6 +117,8 @@ public class RobotContainer {
     new JoystickButton(m_flightDriver, FlightStick.Button.kLeftTopMiddle.value).whenHeld(new FrontNFeed(m_intake, m_feeder));
     new JoystickButton(m_flightDriver, FlightStick.Button.kLeftTopRight.value).whenHeld(new SideNFeed(m_intake, m_feeder));
     new JoystickButton(m_flightDriver, FlightStick.Button.kLeftTopLeft.value).whenPressed(new ToggleFieldDrive(m_drive));
+    new JoystickButton(m_flightDriver, FlightStick.Button.kMiddleThumb.value).whenHeld(new TurnToTargetPID(() -> -m_flightDriver.getY(), () -> m_flightDriver.getX(), m_drive, m_light));
+    new JoystickButton(m_flightDriver, FlightStick.Button.kRightThumb.value).whenHeld(new DriveToTarget(m_drive, m_light));
 
     new JoystickButton(m_operator, 1).whenHeld(new FrontNFeed(m_intake, m_feeder));
     new JoystickButton(m_operator, 2).whenHeld(new SideNFeed(m_intake, m_feeder));
@@ -123,6 +129,7 @@ public class RobotContainer {
     new JoystickButton(m_operator, 7).whenHeld(new MidShoot(m_shooter));
     new JoystickButton(m_operator, 8).whenHeld(new FastShoot(m_shooter));
     new JoystickButton(m_operator, 9).whenHeld(new LowerHubShoot(m_shooter));
+    new JoystickButton(m_operator, 10).whenHeld(new AutoRPM(m_shooter, m_light));
     new JoystickButton(m_operator, 11).whenHeld(new RaiseArms(m_climb));
     new JoystickButton(m_operator, 12).whileHeld(new LowerArms(m_climb));
     new JoystickButton(m_operator, 13).whenHeld(new LeanBack(m_climb));
@@ -134,7 +141,6 @@ public class RobotContainer {
     new JoystickButton(m_operator, 21).whenPressed(new StopShooter(m_shooter));
     new JoystickButton(m_operator, 22).whenPressed(new LEDOn(m_light));
     new JoystickButton(m_operator, 23).whenPressed(new LEDOff(m_light));
-
   }
 
   /**

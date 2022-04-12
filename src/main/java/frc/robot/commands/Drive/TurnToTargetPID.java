@@ -4,43 +4,39 @@
 
 package frc.robot.commands.Drive;
 
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
-// import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Limelight;
 
-// TODO: Test autons and see if encoder fix works
-public class DriveBackDistance extends CommandBase {
-  private final double m_distance;
-  private final double m_speed;
+public class TurnToTargetPID extends CommandBase {
+  private final DoubleSupplier m_ySpeed;
+  private final DoubleSupplier m_xSpeed;
   private final Drivetrain m_drive;
-  private double encoderOffset;
+  private final Limelight m_light;
 
-  /**
-   * Command that drives the robot back a certain distance.
-   * <p>It drives backwards at halfspeed for a set distance.
-   * @param distance The distance to drive in meters.
-   * @param drive The drivetrain subsystem
-   */
-  public DriveBackDistance(double distance, double speed, Drivetrain drive) {
+  /** Creates a new TurnToTargetPID. */
+  public TurnToTargetPID(DoubleSupplier ySpeed, DoubleSupplier xSpeed, Drivetrain drive, Limelight light) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_distance = distance;
-    m_speed = speed;
+    m_ySpeed = ySpeed;
+    m_xSpeed = xSpeed;
     m_drive = drive;
-    addRequirements(m_drive);
+    m_light = light;
+    // addRequirements(m_drive, m_light);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    encoderOffset = m_drive.getAverageDistance();
+    m_drive.getPIDController().setSetpoint(0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_drive.driveCartesian(-m_speed, 0, 0);
+    m_drive.driveCartesian(m_ySpeed.getAsDouble(), m_xSpeed.getAsDouble(), m_drive.getPIDController().calculate(m_light.getTX()));
   }
-
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
@@ -50,6 +46,6 @@ public class DriveBackDistance extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return Math.abs( m_drive.getAverageDistance() - encoderOffset) >= m_distance;
+    return false;
   }
 }

@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.commands.Combo.BothNFeed;
 import frc.robot.commands.Drive.DriveBackDistance;
@@ -39,7 +40,7 @@ public class TwoBallLeftSide extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new ParallelRaceGroup(
-        new DriveForwardDistance(Units.inchesToMeters(65), drive),
+        new DriveForwardDistance(Units.inchesToMeters(65), DriveConstants.kAutonSpeed, drive),
         new BothNFeed(intake, feeder)
       ),
       new BothNFeed(intake, feeder).withTimeout(1),
@@ -50,13 +51,13 @@ public class TwoBallLeftSide extends SequentialCommandGroup {
       ),
       new SetShooterSetpoint(ShooterConstants.kSlowShootRPM, shooter),
       new StartShooter(shooter),
-      new DriveForwardDistance(Units.inchesToMeters(35), drive),
+      new DriveForwardDistance(Units.inchesToMeters(35), DriveConstants.kAutonSpeed, drive),
       new FeedBallsUp(feeder).withTimeout(0.35),
       new WaitCommand(1),
       new BothNFeed(intake, feeder).withTimeout(1),
       new FeedBallsUp(feeder).withTimeout(1),
       new StopShooter(shooter),
-      new DriveBackDistance(1, drive)
+      new DriveBackDistance(1,DriveConstants.kAutonSpeed, drive)
     );
   }
 }

@@ -26,6 +26,9 @@ public class Shooter extends PIDSubsystem {
 
   private final ShuffleboardTab m_tab = Shuffleboard.getTab("Main");
   private final NetworkTableEntry m_rpm;
+  private final NetworkTableEntry m_setRPM;
+
+  double newRPM;
   
   /** Creates a new ShooterPID. */
   public Shooter() {
@@ -41,6 +44,7 @@ public class Shooter extends PIDSubsystem {
     
     m_rpm = m_tab.add("Shooter RPM", getRPM()).withPosition(4, 1).withSize(1, 1).withWidget(BuiltInWidgets.kTextView).getEntry();
     // m_tab.add("PID Controller", getController()).withPosition(4, 2).withSize(1, 2).withWidget(BuiltInWidgets.kPIDController);
+    m_setRPM = m_tab.add("Set RPM", 1.0).getEntry();
   }
 
   @Override
@@ -102,7 +106,11 @@ public class Shooter extends PIDSubsystem {
    * @param distance The distance the robot is from the target.
    */
   public double distanceToRPM(double distance) {
-    return distance; //TODO: find the right equation for this
+    return 6138 + -1790 * distance + 309 * distance * distance;
+  }
+
+  public double getNewRPM() {
+    return newRPM;
   }
 
   /**
@@ -118,5 +126,6 @@ public class Shooter extends PIDSubsystem {
     // This method will be called once per scheduler run
     m_rpm.setNumber(getRPM());
     super.periodic();
+    newRPM = m_setRPM.getDouble(1.0);
   }
 }

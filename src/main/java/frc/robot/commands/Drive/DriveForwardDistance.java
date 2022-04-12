@@ -5,12 +5,15 @@
 package frc.robot.commands.Drive;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.DriveConstants;
+// import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.Drivetrain;
 
+// TODO: Test autons and see if encoder fix works
 public class DriveForwardDistance extends CommandBase {
   private final double m_distance;
+  private final double m_speed;
   private final Drivetrain m_drive;
+  private double encoderOffset;
 
   /**
    * Command that drives the robot forward a certain distance.
@@ -18,9 +21,10 @@ public class DriveForwardDistance extends CommandBase {
    * @param distance The distance to drive in meters.
    * @param drive The drivetrain subsystem
    */
-  public DriveForwardDistance(double distance, Drivetrain drive) {
+  public DriveForwardDistance(double distance, double speed, Drivetrain drive) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_distance = distance;
+    m_speed = speed;
     m_drive = drive;
     addRequirements(m_drive);
   }
@@ -28,13 +32,13 @@ public class DriveForwardDistance extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_drive.resetEncoders();
+    encoderOffset = m_drive.getAverageDistance();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_drive.driveCartesian(DriveConstants.kAutonSpeed, 0, 0);
+    m_drive.driveCartesian(m_speed, 0, 0);
   }
 
   // Called once the command ends or is interrupted.
@@ -46,6 +50,6 @@ public class DriveForwardDistance extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return Math.abs(m_drive.getAverageDistance()) >= m_distance;
+    return Math.abs(encoderOffset - m_drive.getAverageDistance()) >= m_distance;
   }
 }

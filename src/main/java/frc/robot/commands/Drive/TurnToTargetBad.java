@@ -5,51 +5,55 @@
 package frc.robot.commands.Drive;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-// import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Limelight;
 
-// TODO: Test autons and see if encoder fix works
-public class DriveBackDistance extends CommandBase {
-  private final double m_distance;
-  private final double m_speed;
+public class TurnToTargetBad extends CommandBase {
   private final Drivetrain m_drive;
-  private double encoderOffset;
-
+  private final Limelight m_light;
+  
   /**
-   * Command that drives the robot back a certain distance.
-   * <p>It drives backwards at halfspeed for a set distance.
-   * @param distance The distance to drive in meters.
+   * Command to turn the robot to the hab.
    * @param drive The drivetrain subsystem
+   * @param light The limelight subsystem
    */
-  public DriveBackDistance(double distance, double speed, Drivetrain drive) {
+  public TurnToTargetBad(Drivetrain drive, Limelight light) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_distance = distance;
-    m_speed = speed;
     m_drive = drive;
-    addRequirements(m_drive);
+    m_light = light;
+    addRequirements(m_drive, m_light);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    encoderOffset = m_drive.getAverageDistance();
+    m_light.setLEDMode(3);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_drive.driveCartesian(-m_speed, 0, 0);
+    // m_drive.driveCartesian(0, 0, m_drive.getPIDController().calculate(m_light.getTX()) + m_drive.getFeedforward().calculate(m_light.getTX()));
+    if (m_light.getTX() < 5 && m_light.getTX() > -5) {
+      m_drive.stopDrive();
+    } else if (m_light.getTX() < -5 ) {
+      m_drive.driveCartesian(0, 0, -0.25);
+    } else if (m_light.getTX() > 5) {
+      m_drive.driveCartesian(0, 0, 0.25);
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     m_drive.stopDrive();
+    // m_light.setLEDMode(1);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return Math.abs( m_drive.getAverageDistance() - encoderOffset) >= m_distance;
+    // return !m_light.getTV();
+    return false;
   }
 }

@@ -50,7 +50,12 @@ public class Limelight extends SubsystemBase {
    * @return the distance in meters
    */
   public double getDistance() {
-    return (LimelightConstant.kHubHeightMeters - LimelightConstant.kLimelightHeightMeters) / Math.tan(Math.toRadians(LimelightConstant.kLimelightAngle) + Math.toRadians(getTX()));
+    // if(getTV()) {
+    // } else {
+    //   return 0;
+    // }
+    return (LimelightConstant.kHubHeightMeters - LimelightConstant.kLimelightHeightMeters) / Math.tan(Math.toRadians(LimelightConstant.kLimelightAngle) + Math.toRadians(getTY()));
+
   }
 
   /**
@@ -83,5 +88,6 @@ public class Limelight extends SubsystemBase {
     m_tv.setBoolean(tv.getDouble(0) == 1);
     m_tx.setDouble(tx.getDouble(0.0));
     m_ty.setDouble(ty.getDouble(0.0));
+    System.out.println(getDistance());
   }
 }

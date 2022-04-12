@@ -26,10 +26,9 @@ public final class Constants {
         public static final double kSlowDriveSpeed = 0.5;
         public static final double kTurningSlowDown = 0.75;
 
-        // TODO: Tune these values
-        public static final double kS = 0;
-        public static final double kV = 0;
-        public static final double kP = 0;
+        public static final double kS = 0.65544;
+        public static final double kV = 2.3315;
+        public static final double kP = -0.03;
         public static final double kI = 0;
         public static final double kD = 0;
 
@@ -56,10 +55,10 @@ public final class Constants {
 
     public static final class ShooterConstants {
         public static final int kShooterMotor = 9;
-        public static final double kSlowShootRPM = 3600;
-        public static final double kMidShootRPM = 3800;
-        public static final double kFastShootRPM = 4000;
-        public static final double kLowerShootRPM = 2000;
+        public static final double kSlowShootRPM = 3800; // 3600
+        public static final double kMidShootRPM = 4200; // 3800
+        public static final double kFastShootRPM = 4500; // 4000
+        public static final double kLowerShootRPM = 3000;
         public static final double kS = 0.53707;
         public static final double kV = 0.0;
         public static final double kP = 0.008;
@@ -80,8 +79,8 @@ public final class Constants {
     }
 
     public static final class LimelightConstant {
-        public static final double kLimelightHeightMeters = Units.inchesToMeters(24); // TODO: Get actual height
-        public static final double kLimelightAngle = 30; // TODO: Get actual angle
+        public static final double kLimelightHeightMeters = Units.inchesToMeters(34);
+        public static final double kLimelightAngle = 30;
         public static final double kHubHeightMeters = Units.inchesToMeters(104);
     }
 

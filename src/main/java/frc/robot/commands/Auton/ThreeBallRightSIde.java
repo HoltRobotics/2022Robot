@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.commands.Combo.BothNFeed;
 import frc.robot.commands.Drive.DriveBackDistance;
@@ -26,7 +25,7 @@ import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 
-public class TwoBallRightSide extends SequentialCommandGroup {
+public class ThreeBallRightSIde extends SequentialCommandGroup {
   
   /**
    * Autonomous command for the right side of the field that drives forward, picks up a ball, turns, drives forward, then shoots both balls.
@@ -35,18 +34,18 @@ public class TwoBallRightSide extends SequentialCommandGroup {
    * @param feeder The feeder subsystem
    * @param shooter The shooter subsystem
    */
-  public TwoBallRightSide(Drivetrain drive, Intake intake, Feeder feeder, Shooter shooter) {
+  public ThreeBallRightSIde(Drivetrain drive, Intake intake, Feeder feeder, Shooter shooter) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new ParallelRaceGroup(
-        new DriveForwardDistance(Units.inchesToMeters(46), DriveConstants.kAutonSpeed, drive),
+        new DriveForwardDistance(Units.inchesToMeters(35), 0.33, drive),
         new BothNFeed(intake, feeder)
       ),
       new BothNFeed(intake, feeder).withTimeout(0.5),
-      new DriveBackDistance(0.5, DriveConstants.kAutonSpeed, drive),
+      new DriveBackDistance(0.5, 0.33, drive),
       new BothNFeed(intake, feeder).withTimeout(1),
-      new TurnRightAngle(170, drive),
+      new TurnRightAngle(140, drive),
       new ParallelDeadlineGroup(new WaitCommand(0.2), 
         new BeltsDown(feeder),
         new BackwardsShooter(shooter)

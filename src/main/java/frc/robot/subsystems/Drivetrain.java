@@ -123,6 +123,16 @@ public class Drivetrain extends SubsystemBase {
     m_rearRightMotor.setNeutralMode(mode);
   }
 
+  public void driveLeftSide(double speed) {
+    m_frontLeftMotor.setVoltage(speed);
+    m_rearLeftMotor.setVoltage(speed);
+  }
+
+  public void driveRightSide(double speed) {
+    m_frontRightMotor.setVoltage(speed);
+    m_rearRightMotor.setVoltage(speed);
+  }
+
   /**
    * Drive method to drive the robot using voltages.
    * <p>Can only move forward and backwards.
