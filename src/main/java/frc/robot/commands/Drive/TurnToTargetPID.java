@@ -26,6 +26,16 @@ public class TurnToTargetPID extends CommandBase {
     // addRequirements(m_drive, m_light);
   }
 
+  /** Creates a new TurnToTargetPID. */
+  public TurnToTargetPID(Drivetrain drive, Limelight light) {
+    // Use addRequirements() here to declare subsystem dependencies.
+    m_ySpeed = () -> 0;
+    m_xSpeed = () -> 0;
+    m_drive = drive;
+    m_light = light;
+    // addRequirements(m_drive, m_light);
+  }
+
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {

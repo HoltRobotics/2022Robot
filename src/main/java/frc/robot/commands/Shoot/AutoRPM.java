@@ -13,11 +13,11 @@ public class AutoRPM extends CommandBase {
   private final Limelight m_light;
 
   /** Creates a new AutoRPM. */
-  public AutoRPM(Shooter shooter, Limelight lime) {
+  public AutoRPM(Shooter shooter, Limelight light) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_shooter = shooter;
-    m_light = lime;
-    addRequirements(m_shooter, m_light);
+    m_light = light;
+    // addRequirements(m_shooter, m_light);
   }
 
   // Called when the command is initially scheduled.
@@ -29,7 +29,7 @@ public class AutoRPM extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_shooter.setRPM(m_shooter.distanceToRPM(m_light.getDistance()) + 150);
+    m_shooter.setRPM(m_shooter.distanceToRPM(m_light.getDistance()) + 200);
   }
 
   // Called once the command ends or is interrupted.

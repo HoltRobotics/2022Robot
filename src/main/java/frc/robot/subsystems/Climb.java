@@ -25,6 +25,11 @@ public class Climb extends SubsystemBase {
   private final ShuffleboardTab m_tab = Shuffleboard.getTab("Main");
   private final NetworkTableEntry m_armLocation;
   private final NetworkTableEntry m_hookLocation;
+  private final NetworkTableEntry m_armCurrent;
+  private final NetworkTableEntry m_hookCurrent;
+
+  double highestArmCurrent;
+  double highestHookCurrent;
 
   /**
    * Climb Subsystem. This is the subsystem that controls the climbing mechanism.
@@ -36,8 +41,10 @@ public class Climb extends SubsystemBase {
     m_arm.setIdleMode(IdleMode.kBrake);
     m_hooks.setIdleMode(IdleMode.kBrake);
 
-    m_armLocation = m_tab.add("Arm Location", getArmPosition()).withPosition(6, 0).getEntry();
-    m_hookLocation = m_tab.add("Hook Location", getHookPosition()).withPosition(6, 1).getEntry();
+    m_armLocation = m_tab.add("Arm Location", getArmPosition()).withPosition(0, 3).getEntry();
+    m_hookLocation = m_tab.add("Hook Location", getHookPosition()).withPosition(2, 3).getEntry();
+    m_armCurrent = m_tab.add("Arm Current", getArmCurrent()).withPosition(1, 3).getEntry();
+    m_hookCurrent = m_tab.add("Hook Current", getHookCurrent()).withPosition(3, 3).getEntry();
   }
 
   /**
@@ -98,6 +105,22 @@ public class Climb extends SubsystemBase {
   }
 
   /**
+   * Returns the amount of current that the Hook motor is using.
+   * @return the amount of current in amps.
+   */
+  public double getHookCurrent() {
+    return m_hooks.getOutputCurrent();
+  }
+
+  /**
+   * Returns the amount of current that the Arm motor is using.
+   * @return the amount of current in amps.
+   */
+  public double getArmCurrent() {
+    return m_arm.getOutputCurrent();
+  }
+
+  /**
    * Stops the climbing motor.
    */
   public void stopArms() {
@@ -116,5 +139,15 @@ public class Climb extends SubsystemBase {
     // This method will be called once per scheduler run
     m_armLocation.setNumber(getArmPosition());
     m_hookLocation.setNumber(getHookPosition());
+    double armCurrent = getArmCurrent();
+    double hookCurrent = getHookCurrent();
+    if(armCurrent > highestArmCurrent) {
+      highestArmCurrent = armCurrent;
+    }
+    if (hookCurrent > highestHookCurrent) {
+      highestHookCurrent = hookCurrent;
+    }
+    m_armCurrent.setNumber(highestArmCurrent);
+    m_hookCurrent.setNumber(highestHookCurrent);
   }
 }

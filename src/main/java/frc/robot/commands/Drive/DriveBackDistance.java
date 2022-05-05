@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 // import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.Drivetrain;
 
-// TODO: Test autons and see if encoder fix works
 public class DriveBackDistance extends CommandBase {
   private final double m_distance;
   private final double m_speed;

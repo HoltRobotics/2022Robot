@@ -5,30 +5,26 @@
 package frc.robot.commands.Music;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Music;
 
 public class PlayMusicBut extends CommandBase {
   private final Music m_music;
-  private final Drivetrain m_drive;
   
   /**
    * Command that plays music.
    * @param music The music subsystem
    * @param drive The drivetrain subsystem
    */
-  public PlayMusicBut(Music music, Drivetrain drive) {
+  public PlayMusicBut(Music music) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_music = music;
-    m_drive = drive;
-    addRequirements(m_music, m_drive);
+    addRequirements(m_music);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     m_music.playMusic();
-    m_drive.setDefaultCommand(new PlayMusicBut(m_music, m_drive));
   }
 
   // Called every time the scheduler runs while the command is scheduled.

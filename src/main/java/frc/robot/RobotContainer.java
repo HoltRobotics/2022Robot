@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -15,9 +17,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.OIConstants;
-import frc.robot.commands.Auton.DriveThenShootOneBall;
+import frc.robot.commands.Auton.OneBall;
+import frc.robot.commands.Auton.OneBallWithLight;
+import frc.robot.commands.Auton.ThreeBallRightSide;
 import frc.robot.commands.Auton.TwoBallLeftSide;
+import frc.robot.commands.Auton.TwoBallLeftSideWithLight;
 import frc.robot.commands.Auton.TwoBallRightSide;
+import frc.robot.commands.Auton.TwoBallRightSideWithLight;
 import frc.robot.commands.Climb.ForceArmsDown;
 import frc.robot.commands.Climb.ForceHooksBack;
 import frc.robot.commands.Climb.LeanBack;
@@ -28,16 +34,15 @@ import frc.robot.commands.Climb.ResetArmEncoders;
 import frc.robot.commands.Climb.ResetHookEncoders;
 import frc.robot.commands.Combo.FrontNFeed;
 import frc.robot.commands.Combo.SideNFeed;
+import frc.robot.commands.Combo.TurnAndShoot;
 import frc.robot.commands.Drive.CartesianDrive;
 import frc.robot.commands.Drive.DriveToTarget;
 import frc.robot.commands.Drive.SlowDrive;
 import frc.robot.commands.Drive.ToggleFieldDrive;
-import frc.robot.commands.Drive.TurnToTargetPID;
 import frc.robot.commands.Feeder.FeedBallsDown;
 import frc.robot.commands.Feeder.FeedBallsUp;
 import frc.robot.commands.Limelight.LEDOff;
 import frc.robot.commands.Limelight.LEDOn;
-import frc.robot.commands.Shoot.AutoRPM;
 import frc.robot.commands.Shoot.BackwardsShooter;
 import frc.robot.commands.Shoot.FastShoot;
 import frc.robot.commands.Shoot.LowerHubShoot;
@@ -74,10 +79,14 @@ public class RobotContainer {
   public final ShuffleboardTab m_tab = Shuffleboard.getTab("Main");
   public final SendableChooser<Command> m_auto = new SendableChooser<>();
 
+  // Cameras
+  public final UsbCamera m_frontCamera;
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
+    m_frontCamera = CameraServer.startAutomaticCapture();
 
     // m_drive.setDefaultCommand(new CartesianDrive(
     //   () -> -m_xboxDriver.getLeftY() + -m_flightDriver.getY(),
@@ -94,10 +103,15 @@ public class RobotContainer {
     );
 
     m_tab.add("Auton List", m_auto).withPosition(0, 2).withSize(2, 1).withWidget(BuiltInWidgets.kComboBoxChooser);
-    m_auto.addOption("One Ball", new DriveThenShootOneBall(m_shooter, m_drive, m_feeder));
+    m_auto.addOption("One Ball with Light", new OneBallWithLight(m_shooter, m_drive, m_feeder, m_light));
+    m_auto.addOption("Two Ball Left Side With Light", new TwoBallLeftSideWithLight(m_drive, m_intake, m_feeder, m_shooter, m_light));
+    m_auto.addOption("Two Ball Right Side with Light", new TwoBallRightSideWithLight(m_drive, m_intake, m_feeder, m_shooter, m_light));
+    m_auto.addOption("Three Ball Right Side with Light", new ThreeBallRightSide(m_drive, m_intake, m_feeder, m_shooter, m_light));
+    m_auto.addOption("One Ball", new OneBall(m_shooter, m_drive, m_feeder));
     m_auto.setDefaultOption("Two Ball Left Side", new TwoBallLeftSide(m_drive, m_intake, m_feeder, m_shooter));
     m_auto.addOption("Two Ball Right Side", new TwoBallRightSide(m_drive, m_intake, m_feeder, m_shooter));
-    // m_auto.addOption("Three Ball Right Side", new ThreeBallRightSIde(m_drive, m_intake, m_feeder, m_shooter));
+
+    m_tab.add(m_frontCamera).withPosition(6, 0).withSize(4, 4).withWidget(BuiltInWidgets.kCameraStream);
   }
 
   /**
@@ -117,7 +131,8 @@ public class RobotContainer {
     new JoystickButton(m_flightDriver, FlightStick.Button.kLeftTopMiddle.value).whenHeld(new FrontNFeed(m_intake, m_feeder));
     new JoystickButton(m_flightDriver, FlightStick.Button.kLeftTopRight.value).whenHeld(new SideNFeed(m_intake, m_feeder));
     new JoystickButton(m_flightDriver, FlightStick.Button.kLeftTopLeft.value).whenPressed(new ToggleFieldDrive(m_drive));
-    new JoystickButton(m_flightDriver, FlightStick.Button.kMiddleThumb.value).whenHeld(new TurnToTargetPID(() -> -m_flightDriver.getY(), () -> m_flightDriver.getX(), m_drive, m_light));
+    // new JoystickButton(m_flightDriver, FlightStick.Button.kMiddleThumb.value).whenHeld(new TurnToTargetPID(() -> -m_flightDriver.getY(), () -> m_flightDriver.getX(), m_drive, m_light));
+    new JoystickButton(m_flightDriver, FlightStick.Button.kMiddleThumb.value).whenHeld(new TurnAndShoot(m_drive, m_light, m_feeder, m_shooter));
     new JoystickButton(m_flightDriver, FlightStick.Button.kRightThumb.value).whenHeld(new DriveToTarget(m_drive, m_light));
 
     new JoystickButton(m_operator, 1).whenHeld(new FrontNFeed(m_intake, m_feeder));
@@ -129,7 +144,7 @@ public class RobotContainer {
     new JoystickButton(m_operator, 7).whenHeld(new MidShoot(m_shooter));
     new JoystickButton(m_operator, 8).whenHeld(new FastShoot(m_shooter));
     new JoystickButton(m_operator, 9).whenHeld(new LowerHubShoot(m_shooter));
-    new JoystickButton(m_operator, 10).whenHeld(new AutoRPM(m_shooter, m_light));
+    // new JoystickButton(m_operator, 10).whenHeld(new AutoRPM(m_shooter, m_light));
     new JoystickButton(m_operator, 11).whenHeld(new RaiseArms(m_climb));
     new JoystickButton(m_operator, 12).whileHeld(new LowerArms(m_climb));
     new JoystickButton(m_operator, 13).whenHeld(new LeanBack(m_climb));

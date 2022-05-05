@@ -6,37 +6,28 @@ package frc.robot.commands.Auton;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.DriveConstants;
-import frc.robot.Constants.ShooterConstants;
+import frc.robot.commands.Combo.TurnAndShoot;
 import frc.robot.commands.Drive.DriveBackDistance;
-import frc.robot.commands.Drive.SetBrakeMode;
-import frc.robot.commands.Drive.SetCoastMode;
-import frc.robot.commands.Feeder.FeedBallsUp;
-import frc.robot.commands.Shoot.SetShooterSetpoint;
-import frc.robot.commands.Shoot.StartShooter;
-import frc.robot.commands.Shoot.StopShooter;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Feeder;
+import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Shooter;
 
-public class DriveThenShootOneBall extends SequentialCommandGroup {
+public class OneBallWithLight extends SequentialCommandGroup {
   /**
    * Simple autonomous command that drives forward and shoots one ball.
    * @param shooter The shooter subsystem
    * @param drive The drivetrain subsystem
    * @param feeder The feeder subsystem
+   * @param light The limelight subsystem
    */
-  public DriveThenShootOneBall(Shooter shooter, Drivetrain drive, Feeder feeder) {
+  public OneBallWithLight(Shooter shooter, Drivetrain drive, Feeder feeder, Limelight light) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new SetBrakeMode(drive),
-      new SetShooterSetpoint(ShooterConstants.kSlowShootRPM, shooter),
-      new StartShooter(shooter),
       new DriveBackDistance(1.5, DriveConstants.kAutonSpeed, drive),
-      new FeedBallsUp(feeder).withTimeout(1),
-      new StopShooter(shooter),
-      new DriveBackDistance(1, DriveConstants.kAutonSpeed, drive),
-      new SetCoastMode(drive)
+      new TurnAndShoot(drive, light, feeder, shooter).withTimeout(5),
+      new DriveBackDistance(1, DriveConstants.kAutonSpeed, drive)
     );
   }
 }

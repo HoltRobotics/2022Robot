@@ -2,22 +2,21 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.Intake;
+package frc.robot.commands.Shoot;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Shooter;
 
-public class BothIntakes extends CommandBase {
-private final Intake m_intake;
+public class WaitForShooter extends CommandBase {
+  private final Shooter m_shooter;
 
   /**
-   * Command that runs both intakes.
-   * @param intake The intake subsystem
+   * Waits for the shooter to spin up within 1 percent of its setpoint.
+   * @param shooter The Shooter subsystem
    */
-  public BothIntakes(Intake intake) {
+  public WaitForShooter(Shooter shooter) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_intake = intake;
-    // addRequirements(m_intake);
+    m_shooter = shooter;
   }
 
   // Called when the command is initially scheduled.
@@ -26,20 +25,19 @@ private final Intake m_intake;
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    m_intake.runFrontIntake();
-    m_intake.runSideIntake();
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    m_intake.stopIntakes();
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    if (Math.abs(((m_shooter.getSetpoint() - 1000 - m_shooter.getRPM()) / m_shooter.getSetpoint() * 100)) <= 1) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

@@ -84,7 +84,7 @@ public class Drivetrain extends SubsystemBase {
     // m_tab.add("Gyro", m_gyro.getAbsoluteCompassHeading()).withPosition(0, 2).withSize(2, 2).withWidget(BuiltInWidgets.kGyro);
     m_gyroAngle = m_tab.add("Gyro Angle", getGyroAngle()).withPosition(4, 2).getEntry();
     m_maxSpeed = m_tab.add("Max Speed", 1.0).withPosition(2, 2).withSize(2, 1).withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min", 0, "max", 1)).getEntry();
-    m_tab.add("Turning PID", m_turnController).withPosition(7, 0).withSize(1, 2).withWidget(BuiltInWidgets.kPIDController);
+    // m_tab.add("Turning PID", m_turnController).withPosition(7, 0).withSize(1, 2).withWidget(BuiltInWidgets.kPIDController);
 
     m_maxSpeed.setDouble(DriveConstants.kDefaultSpeed);
   }

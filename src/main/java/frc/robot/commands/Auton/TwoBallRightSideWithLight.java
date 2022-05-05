@@ -14,7 +14,6 @@ import frc.robot.commands.Combo.BothNFeed;
 import frc.robot.commands.Combo.TurnAndShoot;
 import frc.robot.commands.Drive.DriveBackDistance;
 import frc.robot.commands.Drive.DriveForwardDistance;
-import frc.robot.commands.Drive.TurnLeftAngle;
 import frc.robot.commands.Drive.TurnRightAngle;
 import frc.robot.commands.Feeder.BeltsDown;
 import frc.robot.commands.Shoot.BackwardsShooter;
@@ -24,7 +23,7 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Shooter;
 
-public class ThreeBallRightSide extends SequentialCommandGroup {
+public class TwoBallRightSideWithLight extends SequentialCommandGroup {
   
   /**
    * Autonomous command for the right side of the field that drives forward, picks up a ball, turns, drives forward, then shoots both balls.
@@ -34,7 +33,7 @@ public class ThreeBallRightSide extends SequentialCommandGroup {
    * @param shooter The shooter subsystem
    * @param light The limelight subsystem
    */
-  public ThreeBallRightSide(Drivetrain drive, Intake intake, Feeder feeder, Shooter shooter, Limelight light) {
+  public TwoBallRightSideWithLight(Drivetrain drive, Intake intake, Feeder feeder, Shooter shooter, Limelight light) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
@@ -50,13 +49,6 @@ public class ThreeBallRightSide extends SequentialCommandGroup {
         new BeltsDown(feeder),
         new BackwardsShooter(shooter)
       ),
-      new TurnAndShoot(drive, light, feeder, shooter).withTimeout(3), //TODO: find right timeout
-      new TurnLeftAngle(180, drive), //TODO: find right angle
-      new ParallelRaceGroup(
-        new DriveForwardDistance(Units.inchesToMeters(46), DriveConstants.kAutonSpeed, drive), //TODO: find right distance
-        new BothNFeed(intake, feeder)
-      ),
-      new TurnRightAngle(30, drive), //TODO: find right angle
       new TurnAndShoot(drive, light, feeder, shooter)
     );
   }

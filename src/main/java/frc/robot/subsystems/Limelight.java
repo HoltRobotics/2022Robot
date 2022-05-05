@@ -88,6 +88,6 @@ public class Limelight extends SubsystemBase {
     m_tv.setBoolean(tv.getDouble(0) == 1);
     m_tx.setDouble(tx.getDouble(0.0));
     m_ty.setDouble(ty.getDouble(0.0));
-    System.out.println(getDistance());
+    // System.out.println(getDistance());
   }
 }

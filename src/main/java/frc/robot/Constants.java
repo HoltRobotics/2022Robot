@@ -75,7 +75,7 @@ public final class Constants {
         public static final double kArmGearRatio = 48;
         public static final double kHookGearRatio = 36;
         public static final double kArmEncoderMaxValue = 300;
-        public static final double kHookEncoderMaxValue = 360;
+        public static final double kHookEncoderMaxValue = 340;
     }
 
     public static final class LimelightConstant {
